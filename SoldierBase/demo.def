@@ -1,0 +1,4 @@
+LIBRARY "Demo"
+
+EXPORTS
+  CreateObject @1

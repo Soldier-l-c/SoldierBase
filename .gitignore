@@ -1,0 +1,7 @@
+Debug
+Release
+x64
+win32
+.vs
+*.user
+*.aps
