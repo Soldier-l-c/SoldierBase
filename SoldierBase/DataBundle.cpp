@@ -102,6 +102,23 @@ smart_result __stdcall DataBundle::GetInterface(const char* key, ISmartBase** in
 	return iter->second->GetInterface(intf);
 }
 
+uint32_t __stdcall DataBundle::Count()
+{
+	return data_list_.size();
+}
+
+smart_result __stdcall DataBundle::Remove(const char* key)
+{
+	if (!key)return err_code::e_invalidarg;
+
+	return data_list_.erase(key);
+}
+
+void __stdcall DataBundle::RemoveAll()
+{
+	data_list_.clear();
+}
+
 smart_result __stdcall DataBundle::PutString(const char* key, const char* str)
 {
 	if (!key || !str)return err_code::e_invalidarg;

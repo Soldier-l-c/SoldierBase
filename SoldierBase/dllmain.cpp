@@ -38,7 +38,6 @@ public:
 
 public:
     virtual const char* __stdcall Test()override { return "asdadsad"; };
-
 };
 
 EXTERN_C smart_result CreateObject(const GUID& guid, void** intf)
