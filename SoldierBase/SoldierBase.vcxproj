@@ -246,6 +246,8 @@
     <ClInclude Include="Logger.h" />
     <ClInclude Include="NetHelper.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="TimerMgr.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataArray.cpp" />
@@ -263,6 +265,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-md|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="TimerMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="demo.def" />

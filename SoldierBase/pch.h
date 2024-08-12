@@ -30,6 +30,7 @@
 #include <base/DataBundleHelper.h>
 #include <base/INetHelper.h>
 #include <base/NetHelper.h>
+#include <base/ITimer.h>
 
 #define USEGLOG
 #ifdef USEGLOG

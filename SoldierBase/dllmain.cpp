@@ -5,6 +5,7 @@
 #include "NetHelper.h"
 #include "DataBundle.h"
 #include "DataArray.h"
+#include "Timer.h"
 
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
@@ -27,7 +28,7 @@ class Demo :
     public IDemo
 {
 public:
-    Demo() {};
+    Demo() { LOG(INFO) << "Demo"; };
     virtual ~Demo() { LOG(INFO) << "~Demo"; };
 
 public:
@@ -37,7 +38,7 @@ public:
     END_OBJECT_MAP();
 
 public:
-    virtual const char* __stdcall Test()override { return "asdadsad"; };
+    virtual const char* __stdcall Test()override { return "Demo test!"; };
 };
 
 EXTERN_C smart_result CreateObject(const GUID& guid, void** intf)
@@ -47,6 +48,7 @@ EXTERN_C smart_result CreateObject(const GUID& guid, void** intf)
     CREATE_INSTANCE(INetHelper, guid, intf, NetHelper);
     CREATE_INSTANCE(IDataBundle, guid, intf, DataBundle);
     CREATE_INSTANCE(IDataArray, guid, intf, DataArray);
+    CREATE_INSTANCE(ITimer, guid, intf, Timer);
 
     return err_code::e_nointerface;
 }
