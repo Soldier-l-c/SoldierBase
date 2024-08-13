@@ -31,6 +31,9 @@
     <Filter Include="Timer">
       <UniqueIdentifier>{3a162b4c-aa8e-4736-92ff-2f35eafcb8ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IOContext">
+      <UniqueIdentifier>{b3a64545-8d34-4dbd-8dd1-52f898bbf6ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -61,7 +64,13 @@
       <Filter>Timer</Filter>
     </ClInclude>
     <ClInclude Include="TimerMgr.h">
-      <Filter>头文件</Filter>
+      <Filter>Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="InternalIOContext.h">
+      <Filter>IOContext</Filter>
+    </ClInclude>
+    <ClInclude Include="InternalLogger.h">
+      <Filter>Logger</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +103,12 @@
     </ClCompile>
     <ClCompile Include="TimerMgr.cpp">
       <Filter>Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="InternalIOContext.cpp">
+      <Filter>IOContext</Filter>
+    </ClCompile>
+    <ClCompile Include="InternalLogger.cpp">
+      <Filter>Logger</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

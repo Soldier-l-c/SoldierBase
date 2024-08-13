@@ -4,11 +4,7 @@
 void InitLogger(const wchar_t* log_path)
 {
 #ifndef USEGLOG 
-    if (g_logger == nullptr)
-    {
-        g_logger = std::make_shared<console_logger::InternalLogger>();
-        g_logger->SetProperty(logger::LoggerProperty::Level, (int32_t)logger::LEVEL_INFO);
-    }
+    
 #else
     if (google::IsGoogleLoggingInitialized())return;
     static auto log_file_name = helper::String::utf16_to_utf8(log_path);
@@ -19,12 +15,21 @@ void InitLogger(const wchar_t* log_path)
 
 void __stdcall Logger::Init(const wchar_t* log_path)
 {
+#ifdef USE_INTERNAL_LOG
+    logger_ = std::make_shared<InternalBaseLogger>();
+    return  logger_->Init(log_path);
+#endif
+
     InitLogger(log_path);
     init_ = true;
 }
 
 void __stdcall Logger::Write(int32_t level, const wchar_t* stream)
 {
+#ifdef USE_INTERNAL_LOG
+    return  logger_->Write(level, stream);
+#endif
+
     if (level > level_)return;
 
     switch (level)
@@ -45,6 +50,10 @@ void __stdcall Logger::Write(int32_t level, const wchar_t* stream)
 }
 void __stdcall Logger::SetProperty(logger::LoggerProperty type, int32_t value)
 {
+#ifdef USE_INTERNAL_LOG
+    return  logger_->SetProperty(type, value);
+#endif
+
     switch (type)
     {
     case logger::LoggerProperty::Level:

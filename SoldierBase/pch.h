@@ -10,6 +10,7 @@
 // 添加要在此处预编译的标头
 #include "framework.h"
 #include <iostream>
+#include <shared_mutex>
 
 #include <helper/util_time.h>
 #include <helper/util_string.h>
@@ -31,8 +32,11 @@
 #include <base/INetHelper.h>
 #include <base/NetHelper.h>
 #include <base/ITimer.h>
+#include <logger/ILogger.h>
 
-#define USEGLOG
+#define USE_INTERNAL_LOG
+
+//#define USEGLOG
 #ifdef USEGLOG
 #define GLOG_NO_ABBREVIATED_SEVERITIES
 #define GLOG_EXPORT
@@ -41,9 +45,15 @@
 #include <glog/logging.h>
 #else 
 #include <logger/console_logger.h>
-extern console_logger::ILoggerPtr g_logger;
-#define LOG LOG_CMD
+extern ILoggerPtr g_logger;
+#define LOG ILOG
 #endif
 #include <logger/ILogger.h>
+
+using ReadLock = std::shared_lock<std::shared_mutex>;
+using WriteLock = std::unique_lock<std::shared_mutex>;
+
+
+using INTERNAL_HANDLE = void*;
 
 #endif //PCH_H

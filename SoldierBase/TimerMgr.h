@@ -23,6 +23,8 @@ class TimerMgr
 
 	void AddTimer(uint32_t time_id, BASE_TIMER_CALLBACK call_back, void* context, uint32_t interval, int32_t call_count);
 
+	void Stop();
+
 private:
 	TimerMgr();
 
@@ -32,7 +34,7 @@ private:
 
 	void EraseTimer(const TimerItemPtr& timer);
 
-public:
+private:
 	std::mutex list_lock_;
 	std::condition_variable cv_list_;
 	std::list<TimerItemPtr> timer_list_;

@@ -33,6 +33,13 @@ void TimerMgr::AddTimer(uint32_t time_id, BASE_TIMER_CALLBACK call_back, void* c
 	cv_list_.notify_all();
 }
 
+void TimerMgr::Stop()
+{
+	std::unique_lock<std::mutex> lock(list_lock_);
+	stop_ = true; //此处可能会有多线程问题，但相比于对stop_加锁，这个更划算一些
+	cv_list_.notify_all();
+}
+
 void TimerMgr::Init()
 {
 	std::thread([this] 

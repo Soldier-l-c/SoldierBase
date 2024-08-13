@@ -41,14 +41,30 @@ public:
     virtual const char* __stdcall Test()override { return "Demo test!"; };
 };
 
+void InitLogger()
+{
+    static std::once_flag flag;
+    std::call_once(flag, []
+        {
+            Logger::CreateInstanceEx(g_logger);
+            g_logger->Init(L"module.soldierbase");
+            g_logger->SetProperty(logger::LoggerProperty::AsynLog, 1);
+        });
+
+    ILoggerPtr logger;
+
+}
+
+
 EXTERN_C smart_result CreateObject(const GUID& guid, void** intf)
 {
-    CREATE_INSTANCE(IDemo, guid, intf, Demo);
-    CREATE_INSTANCE(ILogger, guid, intf, Logger);
+    InitLogger();
+    CREATE_INSTANCE(IDemo,      guid, intf, Demo);
+    CREATE_INSTANCE(ILogger,    guid, intf, Logger);
     CREATE_INSTANCE(INetHelper, guid, intf, NetHelper);
-    CREATE_INSTANCE(IDataBundle, guid, intf, DataBundle);
+    CREATE_INSTANCE(IDataBundle,guid, intf, DataBundle);
     CREATE_INSTANCE(IDataArray, guid, intf, DataArray);
-    CREATE_INSTANCE(ITimer, guid, intf, Timer);
+    CREATE_INSTANCE(ITimer,     guid, intf, Timer);
 
     return err_code::e_nointerface;
 }

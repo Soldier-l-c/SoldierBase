@@ -1,4 +1,5 @@
 #pragma once
+#include "InternalLogger.h"
 
 class Logger :public ILogger, public Base::CObjectImpl<Logger>
 {
@@ -16,10 +17,14 @@ public:
   
     virtual void __stdcall SetProperty(logger::LoggerProperty type, int32_t value)override;
   
-
 private:
     logger::LOG_LEVEL level_{ logger::LOG_LEVEL::LEVEL_INFO };
     bool log_thread_{ true };
     bool log_time_{ true };
     bool init_{ false };
+
+#ifdef USE_INTERNAL_LOG
+    std::shared_ptr<InternalBaseLogger> logger_;
+#endif
+
 };
