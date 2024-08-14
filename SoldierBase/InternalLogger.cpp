@@ -74,13 +74,16 @@ InternalBaseLogger::~InternalBaseLogger()
 void InternalBaseLogger::InternalWrite(const std::wstring& buffer)
 {
 	std::lock_guard<std::mutex>lock(write_lock_);
-	WriteToFile(buffer);
 
-	if (++write_count_ >= count_to_log_date_)
+	bool log_date = ((write_count_++ % count_to_log_date_) == 0);
+	write_count_ = write_count_ % count_to_log_date_;
+
+	if (log_date)
 	{
-		write_count_ = 0;
 		WriteToFile(GetLogDateBuffer() + L"\r\n");
 	}
+
+	WriteToFile(buffer);
 }
 
 std::wstring InternalBaseLogger::GetLogPrefix(int32_t level)
