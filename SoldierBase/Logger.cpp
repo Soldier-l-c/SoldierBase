@@ -1,25 +1,8 @@
 #include "pch.h"
 #include "Logger.h"
 
-void InitLogger(const wchar_t* log_path)
-{
-#ifndef USEGLOG 
-    
-#else
-    if (google::IsGoogleLoggingInitialized())return;
-    static auto log_file_name = helper::String::utf16_to_utf8(log_path);
-    google::InitGoogleLogging(log_file_name.c_str());
-    FLAGS_log_dir = helper::String::utf16_to_utf8(helper::path::get_cur_full_path().c_str());
-#endif
-}
-
 void __stdcall Logger::Init(const wchar_t* log_path)
 {
-#ifdef USE_INTERNAL_LOG
-    logger_ = std::make_shared<InternalBaseLogger>();
-    return  logger_->Init(log_path);
-#endif
-
     InitLogger(log_path);
     init_ = true;
 }
@@ -48,6 +31,7 @@ void __stdcall Logger::Write(int32_t level, const wchar_t* stream)
         break;
     }
 }
+
 void __stdcall Logger::SetProperty(logger::LoggerProperty type, int32_t value)
 {
 #ifdef USE_INTERNAL_LOG
@@ -66,4 +50,18 @@ void __stdcall Logger::SetProperty(logger::LoggerProperty type, int32_t value)
         log_time_ = value > 0;
         break;
     }
-};
+}
+
+bool Logger::InitLogger(const wchar_t* log_path)
+{
+#ifdef USE_INTERNAL_LOG 
+    logger_ = std::make_shared<InternalBaseLogger>();
+    logger_->Init(log_path);
+#else
+    if (google::IsGoogleLoggingInitialized())return true;
+    static auto log_file_name = helper::String::utf16_to_utf8(log_path);
+    google::InitGoogleLogging(log_file_name.c_str());
+    FLAGS_log_dir = helper::String::utf16_to_utf8(helper::path::get_cur_full_path().c_str());
+#endif
+    return true;
+}

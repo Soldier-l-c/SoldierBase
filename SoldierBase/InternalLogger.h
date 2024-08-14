@@ -23,6 +23,8 @@ private:
 	
 	std::wstring GetLogDateBuffer();
 
+	std::wstring  GetLogTimeBuffer();
+
 	void WriteToFile(const std::wstring& buffer);
 
 	bool InitLogDir(const wchar_t* log_path);

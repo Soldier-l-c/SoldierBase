@@ -72,6 +72,9 @@
     <ClInclude Include="InternalLogger.h">
       <Filter>Logger</Filter>
     </ClInclude>
+    <ClInclude Include="LoggerDef.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">

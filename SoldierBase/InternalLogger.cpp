@@ -89,7 +89,7 @@ std::wstring InternalBaseLogger::GetLogPrefix(int32_t level)
 
 	if (log_time_)
 	{
-		stream << helper::String::utf8_to_utf16(GetFormatTime().c_str());
+		stream << GetLogTimeBuffer();
 		stream.width(8);
 	}
 
@@ -137,6 +137,23 @@ std::wstring InternalBaseLogger::GetLogDateBuffer()
 		t_tm.tm_mday);
 
 	return (buffer);
+}
+
+std::wstring InternalBaseLogger::GetLogTimeBuffer()
+{
+	auto cur_ms_time = helper::time::get_timestamp_inms();
+	time_t cur_s_time = cur_ms_time / 1000;
+	tm t_tm;
+	localtime_s(&t_tm, &cur_s_time);
+
+	wchar_t buffer[64] = { 0 };
+	_snwprintf(buffer, 64, L"%02d:%02d:%02d.%03d",
+		t_tm.tm_hour,
+		t_tm.tm_min,
+		t_tm.tm_sec,
+		(int32_t)(cur_ms_time % 1000));
+
+	return buffer;
 }
 
 void InternalBaseLogger::WriteToFile(const std::wstring& buffer)

@@ -43,6 +43,7 @@ public:
 
 void InitLogger()
 {
+#ifdef USE_INTERNAL_LOG
     static std::once_flag flag;
     std::call_once(flag, []
         {
@@ -50,15 +51,13 @@ void InitLogger()
             g_logger->Init(L"module.soldierbase");
             g_logger->SetProperty(logger::LoggerProperty::AsynLog, 1);
         });
-
-    ILoggerPtr logger;
-
+#endif
 }
-
 
 EXTERN_C smart_result CreateObject(const GUID& guid, void** intf)
 {
     InitLogger();
+
     CREATE_INSTANCE(IDemo,      guid, intf, Demo);
     CREATE_INSTANCE(ILogger,    guid, intf, Logger);
     CREATE_INSTANCE(INetHelper, guid, intf, NetHelper);
