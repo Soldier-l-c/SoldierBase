@@ -3,10 +3,7 @@
 
 void InternalBaseLogger::Init(const wchar_t* log_path)
 {
-	if (!InitLogDir(log_path))return;
-	if (!InitLogFileHandle(GetLogFileName(log_path)))return;
-
-	init_ = true;
+	log_name_ = log_path;
 }
 
 void InternalBaseLogger::Run()
@@ -26,7 +23,7 @@ void InternalBaseLogger::Run()
 
 void InternalBaseLogger::Write(int32_t level, const wchar_t* buffer)
 {
-	if (level > level_ || !init_ || !buffer)return;
+	if (level > level_  || !buffer)return;
 
 	auto real_buffer = GetRealWriteBuffer(level, buffer);
 
@@ -161,6 +158,10 @@ std::wstring InternalBaseLogger::GetLogTimeBuffer()
 
 void InternalBaseLogger::WriteToFile(const std::wstring& buffer)
 {
+	InitFileHandle();
+
+	if (nullptr == file_handle_ || file_handle_ == INVALID_HANDLE_VALUE)return;
+
 	auto write_count = (unsigned long)buffer.length() * sizeof(wchar_t);
 #ifdef WIN32
 	ReSetFilePointer();
@@ -224,6 +225,16 @@ void InternalBaseLogger::ReSetFilePointer()
 
 	SetFilePointer(file_handle_, 0, 0, FILE_END);
 #endif
+}
+
+void InternalBaseLogger::InitFileHandle()
+{
+	if (init_)return;
+
+	InitLogDir(log_name_.c_str());
+	InitLogFileHandle(GetLogFileName(log_name_.c_str()));
+
+	init_ = true;
 }
 
 bool InternalBaseLogger::InitLogFileHandle(const std::wstring& log_file_name)

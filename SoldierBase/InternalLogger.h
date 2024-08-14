@@ -35,6 +35,8 @@ private:
 
 	void ReSetFilePointer();
 
+	void InitFileHandle();
+
 private:
 	logger::LOG_LEVEL level_{ logger::LOG_LEVEL::LEVEL_INFO };
 	bool log_thread_{ true };
@@ -53,5 +55,6 @@ private:
 	const int32_t max_file_size_{ 30 * 1024 * 1024 };
 
 	std::wstring log_dir_;
+	std::wstring log_name_;
 };
 
