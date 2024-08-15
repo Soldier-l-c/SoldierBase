@@ -37,6 +37,8 @@
 #include <base/INetHelper.h>
 #include <base/NetHelper.h>
 #include <base/ITimer.h>
+#include <base/ISoldierBase.h>
+#include <base/IDemo.h>
 
 #include <logger/ILogger.h>
 

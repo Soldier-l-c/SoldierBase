@@ -238,6 +238,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CrashMgr.h" />
     <ClInclude Include="DataArray.h" />
     <ClInclude Include="DataBundle.h" />
     <ClInclude Include="DataItem.h" />
@@ -247,12 +248,14 @@
     <ClInclude Include="LoggerDef.h" />
     <ClInclude Include="NetHelper.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="SoldierBase.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerMgr.h" />
     <ClInclude Include="InternalIOContext.h" />
     <ClInclude Include="InternalLogger.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CrashMgr.cpp" />
     <ClCompile Include="DataArray.cpp" />
     <ClCompile Include="DataBundle.cpp" />
     <ClCompile Include="DataItem.cpp" />
@@ -270,6 +273,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-md|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="SoldierBase.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerMgr.cpp" />
   </ItemGroup>

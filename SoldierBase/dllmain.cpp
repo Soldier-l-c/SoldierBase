@@ -6,11 +6,13 @@
 #include "DataBundle.h"
 #include "DataArray.h"
 #include "Timer.h"
+#include "SoldierBase.h"
 
-BOOL APIENTRY DllMain( HMODULE hModule,
-                       DWORD  ul_reason_for_call,
-                       LPVOID lpReserved
-                     )
+#ifdef WIN32
+BOOL APIENTRY DllMain(HMODULE hModule,
+    DWORD  ul_reason_for_call,
+    LPVOID lpReserved
+)
 {
     switch (ul_reason_for_call)
     {
@@ -22,6 +24,8 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     }
     return TRUE;
 }
+#endif
+
 
 class Demo :
     public Base::CObjectImpl<Demo>,
@@ -59,6 +63,7 @@ EXTERN_C smart_result CreateObject(const GUID& guid, void** intf)
     InitLogger();
 
     CREATE_INSTANCE(IDemo,      guid, intf, Demo);
+    CREATE_INSTANCE(ISoldierBase, guid, intf, SoldierBase);
     CREATE_INSTANCE(ILogger,    guid, intf, Logger);
     CREATE_INSTANCE(INetHelper, guid, intf, NetHelper);
     CREATE_INSTANCE(IDataBundle,guid, intf, DataBundle);

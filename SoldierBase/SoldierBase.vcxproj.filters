@@ -34,6 +34,12 @@
     <Filter Include="IOContext">
       <UniqueIdentifier>{b3a64545-8d34-4dbd-8dd1-52f898bbf6ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SoldierBase">
+      <UniqueIdentifier>{e63855e4-dd75-4668-8e03-078cbf6215ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CrashMgr">
+      <UniqueIdentifier>{b71f2579-eac8-4f3c-abfa-3f4a11c22436}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -75,6 +81,12 @@
     <ClInclude Include="LoggerDef.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="SoldierBase.h">
+      <Filter>SoldierBase</Filter>
+    </ClInclude>
+    <ClInclude Include="CrashMgr.h">
+      <Filter>CrashMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -112,6 +124,12 @@
     </ClCompile>
     <ClCompile Include="InternalLogger.cpp">
       <Filter>Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="SoldierBase.cpp">
+      <Filter>SoldierBase</Filter>
+    </ClCompile>
+    <ClCompile Include="CrashMgr.cpp">
+      <Filter>CrashMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
