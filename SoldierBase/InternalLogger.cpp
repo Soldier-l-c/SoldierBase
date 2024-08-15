@@ -181,7 +181,7 @@ bool InternalBaseLogger::InitLogDir(const wchar_t* log_path)
 		std::filesystem::create_directories(parent, ec);
 	}
 
-	auto res = std::filesystem::exists(parent, ec);
+	auto res = std::filesystem::exists(parent, ec) && std::filesystem::is_directory(parent, ec);;
 
 	return res;
 }

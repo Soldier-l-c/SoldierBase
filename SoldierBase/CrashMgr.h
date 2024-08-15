@@ -9,7 +9,6 @@ public:
 	void Init();
 	void UnInit();
 
-
 #ifdef WIN32
 	void HandleException(PEXCEPTION_POINTERS pExInfo);
 
@@ -29,10 +28,13 @@ private:
 	bool WriteDumpTofile(PEXCEPTION_POINTERS pExInfo, const std::wstring& file_path, MINIDUMP_TYPE type);
 #endif
 
+	void RemoveOldDumpFiles();
+
 private:
 	bool init_{ false };
 
 	decltype(&::MiniDumpWriteDump)   mini_dump_writer_{ nullptr };
+
 	std::wstring dump_file_dir_;
 };
 

@@ -20,6 +20,7 @@ void CrashMgr::HandleException(PEXCEPTION_POINTERS pExInfo)
 {
 	if (!InitDumpWriteFunc())return;
 	if (!InitDumpFileDir())return;
+	RemoveOldDumpFiles();
 
 #ifdef WIN32
 	WriteDumpTofile(pExInfo, GetDumpFileFullPath(true), MINIDUMP_TYPE::MiniDumpWithFullMemory);
@@ -65,7 +66,6 @@ bool CrashMgr::WriteDumpTofile(PEXCEPTION_POINTERS pExInfo, const std::wstring& 
 
 	return true;
 }
-
 #endif
 
 bool CrashMgr::InitDumpFileDir()
@@ -82,9 +82,27 @@ bool CrashMgr::InitDumpFileDir()
 		std::filesystem::create_directories(parent, ec);
 	}
 
-	auto res = std::filesystem::exists(parent, ec);
+	auto res = std::filesystem::exists(parent, ec) && std::filesystem::is_directory(parent, ec);
 
 	return res;
+}
+
+void CrashMgr::RemoveOldDumpFiles()
+{
+	std::error_code ec;
+	std::wstring dump_ext(L".dmp");
+
+	std::filesystem::directory_iterator end;
+	decltype(end) iter(dump_file_dir_, ec);
+
+	for (; iter != end && !ec; iter.increment(ec)) 
+	{
+		auto ext = iter->path().extension().wstring();
+
+		if (helper::String::is_equal_no_case(ext, dump_ext) == false) continue;
+
+		std::filesystem::remove(*iter, ec);
+	}
 }
 
 std::wstring CrashMgr::GetDumpFileFullPath(bool full)
