@@ -19,7 +19,8 @@ namespace NsPipeData
 struct PipeContextCallbcak
 {
 	virtual void OnError(uint32_t err_code) = 0;
-	virtual void OnDataRecived(uint8_t* data, int32_t len) = 0;
+	
+	virtual void OnDataRecived(uint8_t* data, int32_t len) {};
 };
 
 class PipeContextTaskBase : public IOTask

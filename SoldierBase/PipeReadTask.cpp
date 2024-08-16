@@ -42,10 +42,11 @@ bool PipeContextReadTask::InternalRead()
 
 	if (!HeaderValid())
 	{
+		callback_->OnError(-1);
 		return false;
 	}
 
-	return true;
+	return ReadData();
 }
 
 bool PipeContextReadTask::HeaderValid()

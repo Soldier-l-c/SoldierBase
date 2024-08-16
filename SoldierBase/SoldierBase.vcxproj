@@ -144,7 +144,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(SOLDIERS_3RD)/curl/include;$(SOLDIERS_PUBLIC)/include;$(SOLDIERS_INTERFACE)/;$(SOLDIERS_3RD)/glog/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -171,7 +171,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(SOLDIERS_3RD)/curl/include;$(SOLDIERS_PUBLIC)/include;$(SOLDIERS_INTERFACE)/;$(SOLDIERS_3RD)/glog/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -248,9 +248,13 @@
     <ClInclude Include="LoggerDef.h" />
     <ClInclude Include="NetHelper.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PipeMgr.h" />
     <ClInclude Include="PipeReadTask.h" />
     <ClInclude Include="PipeContextTaskBase.h" />
+    <ClInclude Include="PipeServer.h" />
     <ClInclude Include="PipeSessionBase.h" />
+    <ClInclude Include="PipeSessionClient.h" />
+    <ClInclude Include="PipeSessionServer.h" />
     <ClInclude Include="PipeWriteTask.h" />
     <ClInclude Include="SoldierBase.h" />
     <ClInclude Include="Timer.h" />
@@ -277,9 +281,13 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-md|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PipeMgr.cpp" />
     <ClCompile Include="PipeReadTask.cpp" />
     <ClCompile Include="PipeContextTaskBase.cpp" />
+    <ClCompile Include="PipeServer.cpp" />
     <ClCompile Include="PipeSessionBase.cpp" />
+    <ClCompile Include="PipeSessionClient.cpp" />
+    <ClCompile Include="PipeSessionServer.cpp" />
     <ClCompile Include="PipeWriteTask.cpp" />
     <ClCompile Include="SoldierBase.cpp" />
     <ClCompile Include="Timer.cpp" />

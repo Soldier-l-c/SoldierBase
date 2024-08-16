@@ -105,6 +105,18 @@
     <ClInclude Include="PipeWriteTask.h">
       <Filter>Pipe\ContextTask</Filter>
     </ClInclude>
+    <ClInclude Include="PipeSessionClient.h">
+      <Filter>Pipe</Filter>
+    </ClInclude>
+    <ClInclude Include="PipeSessionServer.h">
+      <Filter>Pipe</Filter>
+    </ClInclude>
+    <ClInclude Include="PipeServer.h">
+      <Filter>Pipe</Filter>
+    </ClInclude>
+    <ClInclude Include="PipeMgr.h">
+      <Filter>Pipe</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -160,6 +172,18 @@
     </ClCompile>
     <ClCompile Include="PipeWriteTask.cpp">
       <Filter>Pipe\ContextTask</Filter>
+    </ClCompile>
+    <ClCompile Include="PipeSessionServer.cpp">
+      <Filter>Pipe</Filter>
+    </ClCompile>
+    <ClCompile Include="PipeSessionClient.cpp">
+      <Filter>Pipe</Filter>
+    </ClCompile>
+    <ClCompile Include="PipeMgr.cpp">
+      <Filter>Pipe</Filter>
+    </ClCompile>
+    <ClCompile Include="PipeServer.cpp">
+      <Filter>Pipe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

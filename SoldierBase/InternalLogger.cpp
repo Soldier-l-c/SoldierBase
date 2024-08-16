@@ -11,6 +11,9 @@ bool InternalBaseLogger::Run()
 	decltype(asyn_log_list_) temp_list;
 	{
 		WriteLock lock(asyn_log_lock_);
+		if (asyn_log_list_.empty())
+			return false;
+
 		temp_list = std::move(asyn_log_list_);
 		asyn_log_list_.clear();
 	}
