@@ -8,6 +8,13 @@ void InternalIOContext::AddTask(const IOTaskPtr& task)
 	cv_list_.notify_all();
 }
 
+void InternalIOContext::AddRunOnceTask(const IOTaskPtr& task)
+{
+	std::unique_lock<std::mutex> lock(list_lock_);
+	task_list_once_.push_back(task);
+	cv_list_.notify_all();
+}
+
 void InternalIOContext::Stop()
 {
 	std::unique_lock<std::mutex> lock(list_lock_);
@@ -27,16 +34,29 @@ void InternalIOContext::ExecTask()
 {
 	while (!stop_)
 	{
-		decltype(task_list_) tmep_list;
+		decltype(task_list_) tmep_list, runonce_list;
 		{
 			std::unique_lock<std::mutex> lock(list_lock_);
 			cv_list_.wait(lock, [this]
 				{
-					return !task_list_.empty() || stop_;
+					return !task_list_.empty() || !task_list_once_.empty() || stop_;
 				});
 			if (stop_)break;
 
-			tmep_list = task_list_;
+			if (!task_list_.empty())
+			{
+				tmep_list = task_list_;
+			}
+			if (!task_list_once_.empty())
+			{
+				runonce_list = std::move(task_list_once_);
+				task_list_once_.clear();
+			}
+		}
+
+		for (const auto& item : runonce_list)
+		{
+			item->Run();
 		}
 
 		for (const auto& item : tmep_list)
