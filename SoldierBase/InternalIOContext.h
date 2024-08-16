@@ -2,7 +2,7 @@
 
 struct IOTask
 {
-	virtual void Run() = 0;
+	virtual bool Run() = 0;
 };
 
 using IOTaskPtr = std::shared_ptr<IOTask>;
@@ -20,6 +20,8 @@ private:
 	InternalIOContext();
 	
 	void ExecTask();
+
+	void EraseTask(const IOTaskPtr& task);
 
 private:
 	std::vector<IOTaskPtr> task_list_;

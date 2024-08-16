@@ -39,7 +39,8 @@
 #include <base/ITimer.h>
 #include <base/ISoldierBase.h>
 #include <base/IDemo.h>
-
+#include <base/IPipe.h>
+#include <base/PipeHelper.h>
 #include <logger/ILogger.h>
 
 #include "LoggerDef.h"

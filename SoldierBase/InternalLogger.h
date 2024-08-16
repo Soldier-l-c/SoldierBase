@@ -8,7 +8,7 @@ public:
 
 	void Init(const wchar_t* log_path);
 
-	virtual void Run() override;
+	virtual bool Run() override;
 
 	void Write(int32_t level, const wchar_t* buffer);
 

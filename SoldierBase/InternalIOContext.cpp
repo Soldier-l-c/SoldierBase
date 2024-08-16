@@ -36,13 +36,25 @@ void InternalIOContext::ExecTask()
 				});
 			if (stop_)break;
 
-			tmep_list = std::move(task_list_);
-			task_list_.clear();
+			tmep_list = task_list_;
 		}
 
 		for (const auto& item : tmep_list)
 		{
-			item->Run();
+			if (!item->Run())
+			{
+				EraseTask(item);
+			}
 		}
+	}
+}
+
+void InternalIOContext::EraseTask(const IOTaskPtr& task)
+{
+	std::unique_lock<std::mutex> lock(list_lock_);
+	auto iter = std::find(task_list_.begin(), task_list_.end(), task);
+	if (iter != task_list_.end())
+	{
+		task_list_.erase(iter);
 	}
 }

@@ -6,7 +6,7 @@ void InternalBaseLogger::Init(const wchar_t* log_path)
 	log_name_ = log_path;
 }
 
-void InternalBaseLogger::Run()
+bool InternalBaseLogger::Run()
 {
 	decltype(asyn_log_list_) temp_list;
 	{
@@ -19,6 +19,8 @@ void InternalBaseLogger::Run()
 	{
 		InternalWrite(l);
 	}
+
+	return false;
 }
 
 void InternalBaseLogger::Write(int32_t level, const wchar_t* buffer)
