@@ -8,10 +8,10 @@ void InternalIOContext::AddTask(const IOTaskPtr& task)
 	cv_list_.notify_all();
 }
 
-void InternalIOContext::AddRunOnceTask(const IOTaskPtr& task)
+void InternalIOContext::AddTask(const IOTaskFunc& func)
 {
 	std::unique_lock<std::mutex> lock(list_lock_);
-	task_list_once_.push_back(task);
+	func_list_.push_back(func);
 	cv_list_.notify_all();
 }
 
@@ -34,12 +34,13 @@ void InternalIOContext::ExecTask()
 {
 	while (!stop_)
 	{
-		decltype(task_list_) tmep_list, runonce_list;
+		decltype(task_list_) tmep_list;
+		decltype(func_list_) func_list;
 		{
 			std::unique_lock<std::mutex> lock(list_lock_);
 			cv_list_.wait(lock, [this]
 				{
-					return !task_list_.empty() || !task_list_once_.empty() || stop_;
+					return !task_list_.empty() || !func_list_.empty() || stop_;
 				});
 			if (stop_)break;
 
@@ -47,16 +48,12 @@ void InternalIOContext::ExecTask()
 			{
 				tmep_list = task_list_;
 			}
-			if (!task_list_once_.empty())
+			
+			if (!func_list_.empty())
 			{
-				runonce_list = std::move(task_list_once_);
-				task_list_once_.clear();
+				func_list = std::move(func_list_);
+				func_list_.clear();
 			}
-		}
-
-		for (const auto& item : runonce_list)
-		{
-			item->Run();
 		}
 
 		for (const auto& item : tmep_list)
@@ -65,6 +62,11 @@ void InternalIOContext::ExecTask()
 			{
 				EraseTask(item);
 			}
+		}
+
+		for (const auto& func : func_list)
+		{
+			func();
 		}
 	}
 }

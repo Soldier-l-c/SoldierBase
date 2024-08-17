@@ -36,7 +36,11 @@ void InternalBaseLogger::Write(int32_t level, const wchar_t* buffer)
 	{
 		WriteLock lock(asyn_log_lock_);
 		asyn_log_list_.push_back(std::move(real_buffer));
-		InternalIOContext::instance().AddRunOnceTask(shared_from_this());
+		InternalIOContext::instance().AddTask([this] 
+			{
+				Run();
+			});
+
 		return;
 	}
 

@@ -50,4 +50,10 @@ using WriteLock = std::unique_lock<std::shared_mutex>;
 
 using INTERNAL_HANDLE = void*;
 
+#ifdef WIN32
+#ifndef errno
+#define errno ::GetLastError()
+#endif
+#endif
+
 #endif //PCH_H

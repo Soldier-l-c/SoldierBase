@@ -20,6 +20,14 @@ class PipeMgr :
 public:
     void BroadcastData(const wchar_t* pip_name, void* data, int32_t len);
 
+    void RemoveSession(const wchar_t* pip_name, const IPipeSessionPtr& session);
+
+    void AddSession(const wchar_t* pip_name, const IPipeSessionPtr& session);
+
+    smart_result InternalCreateServer(const wchar_t* pipe_name, IPipeServerCallback* server_callback);
+
+    smart_result AsynWaitClientConnect(void* pipe_handle, const wchar_t* pipe_name, IPipeServerCallbackPtr server_callback);
+
 private:
     using ServerList = std::map<std::wstring, IPipeServerPtr>;
     using SessionList = std::map<std::wstring, std::vector<IPipeSessionPtr>>;

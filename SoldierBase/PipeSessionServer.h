@@ -9,5 +9,17 @@ class PipeSessionServer :
         OBJECT_INTERFACE(ISmartBase)
     END_OBJECT_MAP();
 
+    PipeSessionServer(IPipeServerCallback* callback, void* pipe_handle, const std::wstring& pipe_name);
+
+    virtual void OnDataRecived(uint8_t* data, int32_t len) override;
+
+    virtual void OnError(uint32_t err_code);
+
+protected:
+    virtual void IniternalClose(uint32_t err_code) override;
+
+private:
+    IPipeServerCallbackPtr callback_;
+
 };
 

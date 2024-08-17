@@ -7,6 +7,8 @@ struct IOTask
 
 using IOTaskPtr = std::shared_ptr<IOTask>;
 
+using IOTaskFunc = std::function<void()>;
+
 class InternalIOContext
 {
 	SINGLE_INSTANCE(InternalIOContext);
@@ -14,7 +16,7 @@ class InternalIOContext
 public:
 	void AddTask(const IOTaskPtr& task);
 
-	void AddRunOnceTask(const IOTaskPtr& task);
+	void AddTask(const IOTaskFunc& func);
 
 	void Stop();
 
@@ -27,7 +29,8 @@ private:
 
 private:
 	std::vector<IOTaskPtr> task_list_;
-	std::vector<IOTaskPtr> task_list_once_;
+
+	std::vector<IOTaskFunc> func_list_;
 
 	std::mutex list_lock_;
 	std::condition_variable cv_list_;

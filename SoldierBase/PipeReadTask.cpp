@@ -72,18 +72,38 @@ bool PipeContextReadTask::ReadData()
 
 bool PipeContextReadTask::ReadData(void* data, uint32_t& len)
 {
+	DWORD lasterr{ 0 };;
 	DWORD data_len{ len };
-	::ReadFile(handle_, data, data_len, &data_len, &apped_);
-
-	auto lasterr = ::GetLastError();
+	BOOL  read_res{ false };
 	auto res{ false };
+
 	do 
 	{
-		if (lasterr != ERROR_IO_PENDING)
+		read_res = ::ReadFile(handle_, data, data_len, &data_len, &apped_);
+		if (read_res)
 		{
+			LOG(INFO) << "ReadFile1 size:[" << len << "] data len:[" << data_len << "]";
+			res = true;
+			break;
+		}
+		else if (data_len > 0)
+		{
+			LOG(INFO) << "ReadFile2 size:[" << len << "] data len:[" << data_len << "]";
+		}
+
+		lasterr = ::GetLastError();
+		if (ERROR_IO_PENDING == lasterr)
+		{
+			len = 0;
+			res = true;
 			break;
 		}
 
+	} while (false);
+	
+	/*
+	do 
+	{
 		const auto wait_res = ::WaitForSingleObject(apped_.hEvent, 50);
 
 		if (wait_res == WAIT_TIMEOUT)
@@ -98,21 +118,40 @@ bool PipeContextReadTask::ReadData(void* data, uint32_t& len)
 			break;
 		}
 
+		data_len = len;
 		if (!GetOverlappedResult(handle_, &apped_, &data_len, FALSE)) 
 		{
 			lasterr = ::GetLastError();
+			if (ERROR_IO_INCOMPLETE == lasterr)
+			{
+				len = 0;
+				return true;
+			}
 			break;
+		}
+
+		read_res = ::ReadFile(handle_, data, data_len, &data_len, &apped_);
+		
+		if (read_res)
+		{
+			LOG(INFO) << "ReadFile2 size:[" << len << "] data len:[" << data_len << "]";
+			return true;
 		}
 
 		res = (data_len == len);
 
-	} while (false);
+		pending_ = false;
 
-	if (!res)
+	} while (false);*/
+
+	if (!res && ERROR_IO_PENDING!= lasterr)
 	{
 		callback_->OnError(lasterr);
+		helper::time::sleep(50);
 		return false;
 	}
+
+	helper::time::sleep(50);
 
 	return res;
 }

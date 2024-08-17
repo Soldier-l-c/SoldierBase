@@ -22,5 +22,5 @@ protected:
 private:
 	NsPipeData::DataHeader header_;
 	OVERLAPPED apped_;
-
+	bool pending_{ false };
 };
