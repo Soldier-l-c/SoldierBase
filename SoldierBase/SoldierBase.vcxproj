@@ -143,8 +143,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SOLDIERS_3RD)/curl/include;$(SOLDIERS_PUBLIC)/include;$(SOLDIERS_INTERFACE)/;$(SOLDIERS_3RD)/glog/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SOLDIERS_3RD)/curl/include;$(SOLDIERS_PUBLIC)/include;$(SOLDIERS_INTERFACE)/;$(SOLDIERS_3RD)/glog/include;$(SOLDIERS_3RD)/boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -155,7 +155,7 @@
       <EnableUAC>false</EnableUAC>
       <ModuleDefinitionFile>demo.def</ModuleDefinitionFile>
       <AdditionalDependencies>glog-x86.lib;dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SOLDIERS_3RD)/glog/lib;$(SOLDIERS_3RD)\curl\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SOLDIERS_3RD)/glog/lib;$(SOLDIERS_3RD)\curl\lib;$(SOLDIERS_3RD)/boost/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-md|Win32'">
@@ -171,7 +171,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(SOLDIERS_3RD)/curl/include;$(SOLDIERS_PUBLIC)/include;$(SOLDIERS_INTERFACE)/;$(SOLDIERS_3RD)/glog/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -248,6 +248,14 @@
     <ClInclude Include="LoggerDef.h" />
     <ClInclude Include="NetHelper.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PipeMgr.h" />
+    <ClInclude Include="PipeReadTask.h" />
+    <ClInclude Include="PipeContextTaskBase.h" />
+    <ClInclude Include="PipeServer.h" />
+    <ClInclude Include="PipeSessionBase.h" />
+    <ClInclude Include="PipeSessionClient.h" />
+    <ClInclude Include="PipeSessionServer.h" />
+    <ClInclude Include="PipeWriteTask.h" />
     <ClInclude Include="SoldierBase.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerMgr.h" />
@@ -273,6 +281,14 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-md|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PipeMgr.cpp" />
+    <ClCompile Include="PipeReadTask.cpp" />
+    <ClCompile Include="PipeContextTaskBase.cpp" />
+    <ClCompile Include="PipeServer.cpp" />
+    <ClCompile Include="PipeSessionBase.cpp" />
+    <ClCompile Include="PipeSessionClient.cpp" />
+    <ClCompile Include="PipeSessionServer.cpp" />
+    <ClCompile Include="PipeWriteTask.cpp" />
     <ClCompile Include="SoldierBase.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerMgr.cpp" />

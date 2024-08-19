@@ -39,8 +39,14 @@
 #include <base/ITimer.h>
 #include <base/ISoldierBase.h>
 #include <base/IDemo.h>
-
+#include <base/IPipe.h>
+#include <base/PipeHelper.h>
 #include <logger/ILogger.h>
+
+#include <boost/asio.hpp>
+#include <boost/process/pipe.hpp>
+using boost_stream_handle = boost::asio::windows::stream_handle;
+using stream_handle_ptr = std::shared_ptr<boost_stream_handle>;
 
 #include "LoggerDef.h"
 
@@ -48,5 +54,11 @@ using ReadLock = std::shared_lock<std::shared_mutex>;
 using WriteLock = std::unique_lock<std::shared_mutex>;
 
 using INTERNAL_HANDLE = void*;
+
+#ifdef WIN32
+#ifndef errno
+#define errno ::GetLastError()
+#endif
+#endif
 
 #endif //PCH_H

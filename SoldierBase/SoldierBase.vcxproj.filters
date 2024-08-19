@@ -40,6 +40,12 @@
     <Filter Include="CrashMgr">
       <UniqueIdentifier>{b71f2579-eac8-4f3c-abfa-3f4a11c22436}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pipe">
+      <UniqueIdentifier>{a28c3e48-e4a9-4558-b79f-b5f48dc4e6f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pipe\ContextTask">
+      <UniqueIdentifier>{05dc2a42-9226-45cb-a95e-3912d3a066e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -87,6 +93,30 @@
     <ClInclude Include="CrashMgr.h">
       <Filter>CrashMgr</Filter>
     </ClInclude>
+    <ClInclude Include="PipeSessionBase.h">
+      <Filter>Pipe</Filter>
+    </ClInclude>
+    <ClInclude Include="PipeReadTask.h">
+      <Filter>Pipe\ContextTask</Filter>
+    </ClInclude>
+    <ClInclude Include="PipeContextTaskBase.h">
+      <Filter>Pipe\ContextTask</Filter>
+    </ClInclude>
+    <ClInclude Include="PipeWriteTask.h">
+      <Filter>Pipe\ContextTask</Filter>
+    </ClInclude>
+    <ClInclude Include="PipeSessionClient.h">
+      <Filter>Pipe</Filter>
+    </ClInclude>
+    <ClInclude Include="PipeSessionServer.h">
+      <Filter>Pipe</Filter>
+    </ClInclude>
+    <ClInclude Include="PipeServer.h">
+      <Filter>Pipe</Filter>
+    </ClInclude>
+    <ClInclude Include="PipeMgr.h">
+      <Filter>Pipe</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -130,6 +160,30 @@
     </ClCompile>
     <ClCompile Include="CrashMgr.cpp">
       <Filter>CrashMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="PipeSessionBase.cpp">
+      <Filter>Pipe</Filter>
+    </ClCompile>
+    <ClCompile Include="PipeReadTask.cpp">
+      <Filter>Pipe\ContextTask</Filter>
+    </ClCompile>
+    <ClCompile Include="PipeContextTaskBase.cpp">
+      <Filter>Pipe\ContextTask</Filter>
+    </ClCompile>
+    <ClCompile Include="PipeWriteTask.cpp">
+      <Filter>Pipe\ContextTask</Filter>
+    </ClCompile>
+    <ClCompile Include="PipeSessionServer.cpp">
+      <Filter>Pipe</Filter>
+    </ClCompile>
+    <ClCompile Include="PipeSessionClient.cpp">
+      <Filter>Pipe</Filter>
+    </ClCompile>
+    <ClCompile Include="PipeMgr.cpp">
+      <Filter>Pipe</Filter>
+    </ClCompile>
+    <ClCompile Include="PipeServer.cpp">
+      <Filter>Pipe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

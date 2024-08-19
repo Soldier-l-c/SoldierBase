@@ -6,11 +6,14 @@ void InternalBaseLogger::Init(const wchar_t* log_path)
 	log_name_ = log_path;
 }
 
-void InternalBaseLogger::Run()
+bool InternalBaseLogger::Run()
 {
 	decltype(asyn_log_list_) temp_list;
 	{
 		WriteLock lock(asyn_log_lock_);
+		if (asyn_log_list_.empty())
+			return false;
+
 		temp_list = std::move(asyn_log_list_);
 		asyn_log_list_.clear();
 	}
@@ -19,6 +22,8 @@ void InternalBaseLogger::Run()
 	{
 		InternalWrite(l);
 	}
+
+	return false;
 }
 
 void InternalBaseLogger::Write(int32_t level, const wchar_t* buffer)
@@ -31,7 +36,11 @@ void InternalBaseLogger::Write(int32_t level, const wchar_t* buffer)
 	{
 		WriteLock lock(asyn_log_lock_);
 		asyn_log_list_.push_back(std::move(real_buffer));
-		InternalIOContext::instance().AddTask(shared_from_this());
+		InternalIOContext::instance().AddTask([this] 
+			{
+				Run();
+			});
+
 		return;
 	}
 

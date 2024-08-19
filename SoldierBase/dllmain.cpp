@@ -7,6 +7,7 @@
 #include "DataArray.h"
 #include "Timer.h"
 #include "SoldierBase.h"
+#include "PipeMgr.h"
 
 #ifdef WIN32
 BOOL APIENTRY DllMain(HMODULE hModule,
@@ -69,6 +70,7 @@ EXTERN_C smart_result CreateObject(const GUID& guid, void** intf)
     CREATE_INSTANCE(IDataBundle,guid, intf, DataBundle);
     CREATE_INSTANCE(IDataArray, guid, intf, DataArray);
     CREATE_INSTANCE(ITimer,     guid, intf, Timer);
+    CREATE_INSTANCE(IPipeMgr,   guid, intf, PipeMgr);
 
     return err_code::e_nointerface;
 }

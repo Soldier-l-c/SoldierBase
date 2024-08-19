@@ -1,48 +1,52 @@
 #include "pch.h"
 #include "InternalIOContext.h"
 
+void InternalIOContext::Init()
+{
+	std::call_once(int_once_flag_, [this] {InternalInit(); });
+}
+
+void InternalIOContext::UnInit()
+{
+    InternalUinit();
+}
+
 void InternalIOContext::AddTask(const IOTaskPtr& task)
 {
-	std::unique_lock<std::mutex> lock(list_lock_);
-	task_list_.push_back(task);
-	cv_list_.notify_all();
+    io_context_.post([this, task] 
+        {
+            task->Run();
+        });
 }
 
-void InternalIOContext::Stop()
+void InternalIOContext::AddTask(const IOTaskFunc& func)
 {
-	std::unique_lock<std::mutex> lock(list_lock_);
-	stop_ = true; //此处可能会有多线程问题，但相比于对stop_加锁，这个更划算一些
-	cv_list_.notify_all();
+    io_context_.post(func);
 }
 
-InternalIOContext::InternalIOContext()
+boost::asio::io_context& InternalIOContext::IOContext()
 {
-	std::thread([this]
-		{
-			ExecTask();
-		}).detach();
+    return io_context_;
 }
 
-void InternalIOContext::ExecTask()
+void InternalIOContext::InternalInit()
 {
-	while (!stop_)
-	{
-		decltype(task_list_) tmep_list;
-		{
-			std::unique_lock<std::mutex> lock(list_lock_);
-			cv_list_.wait(lock, [this]
-				{
-					return !task_list_.empty() || stop_;
-				});
-			if (stop_)break;
+    io_work_.reset(new boost::asio::io_context::work(io_context_));
 
-			tmep_list = std::move(task_list_);
-			task_list_.clear();
-		}
+    std::thread t([this]()
+        {
+            io_context_.run();
+        }
+    );
 
-		for (const auto& item : tmep_list)
-		{
-			item->Run();
-		}
-	}
+    t.detach();
+}
+
+void InternalIOContext::InternalUinit()
+{
+    if (io_work_ == nullptr) return;
+
+    io_work_.reset();
+    io_context_.stop();
+    io_context_.reset();
 }
