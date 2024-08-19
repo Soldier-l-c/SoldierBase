@@ -23,10 +23,11 @@ class DataArray :
 	virtual smart_result __stdcall GetInterface(uint32_t index, ISmartBase** intf);
 	virtual smart_result __stdcall GetPointer(uint32_t index, void** intf);
 
-	virtual uint32_t __stdcall Count();
+	virtual uint32_t	 __stdcall Count();
 
 	virtual smart_result __stdcall Remove(uint32_t index);
-	virtual void __stdcall RemoveAll();
+
+	virtual void		 __stdcall RemoveAll();
 
 	virtual smart_result __stdcall AddInt(int32_t val);
 	virtual smart_result __stdcall AddUInt(uint32_t val);

@@ -1,14 +1,14 @@
 #pragma once
 #include "InternalIOContext.h"
 
-class InternalBaseLogger : public IOTask, public std::enable_shared_from_this<InternalBaseLogger>
+class InternalBaseLogger : public std::enable_shared_from_this<InternalBaseLogger>
 {
 public:
 	~InternalBaseLogger();
 
 	void Init(const wchar_t* log_path);
 
-	virtual bool Run() override;
+	virtual bool Run();
 
 	void Write(int32_t level, const wchar_t* buffer);
 

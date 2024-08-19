@@ -27,7 +27,6 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 }
 #endif
 
-
 class Demo :
     public Base::CObjectImpl<Demo>,
     public IDemo

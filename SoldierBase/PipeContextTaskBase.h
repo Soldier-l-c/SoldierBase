@@ -13,6 +13,7 @@ namespace NsPipeData
 		uint32_t data_length{ 0 };
 		uint64_t reserved_data[4]{ 0 };
 	};
+
 	const uint32_t HeaderSize = sizeof(DataHeader);
 }
 
@@ -23,12 +24,12 @@ struct PipeContextCallbcak
 	virtual void OnDataRecived(uint8_t* data, int32_t len) {};
 };
 
-class PipeContextTaskBase : public IOTask
+class PipeContextTaskBase
 {
 public:
 	PipeContextTaskBase(const stream_handle_ptr& pipe_handle, PipeContextCallbcak* callback);
 
-	bool Run() final;
+	bool Run();
 
 	void OnClose();
 

@@ -15,7 +15,10 @@ void InternalIOContext::AddTask(const IOTaskPtr& task)
 {
     io_context_.post([this, task] 
         {
-            task->Run();
+            if (task->Run())
+            {
+                this->AddTask(task);
+            }
         });
 }
 
