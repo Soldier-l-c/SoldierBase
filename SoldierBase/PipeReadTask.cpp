@@ -51,6 +51,7 @@ bool PipeContextReadTask::ReadData()
 		return false;
 	}
 
+	//self 防止被析构
 	auto task = [this, self = shared_from_this(), buffer](const boost::system::error_code& error, std::size_t cb)
 	{
 		if (error.failed() || cb != (header_.data_length))
@@ -63,6 +64,7 @@ bool PipeContextReadTask::ReadData()
 
 		self->alloc_.Deallocate();
 
+		//异步读取数据头
 		ReadHeader();
 	};
 
@@ -91,6 +93,7 @@ bool PipeContextReadTask::ReadHeader()
 			return;
 		}
 
+		//异步读取数据体
 		self->ReadData();
 	};
 

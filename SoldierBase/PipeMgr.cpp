@@ -158,6 +158,7 @@ smart_result PipeMgr::AsynWaitClientConnect(stream_handle_ptr& handle, const wch
 
         AddSession(pipename.c_str(), session);
 
+        //一个链接已经建立成功，再异步等待下一个链接
         InternalCreateServer(pipename.c_str(), server_callback);
     };
 

@@ -17,6 +17,7 @@ bool PipeWriteTask::InternalRun()
 	auto* pdata = data_buffer_->data();
 	auto ndata = data_buffer_->size();
 
+	//self ·ÀÖ¹±»Îö¹¹
 	auto task = [this, self = shared_from_this(), safe_data = std::move(data_buffer_)](const boost::system::error_code& error, std::size_t cb)
 	{
 		if (error.failed() || cb != safe_data->size())
