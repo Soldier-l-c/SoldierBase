@@ -26,7 +26,7 @@ struct PipeContextCallbcak
 class PipeContextTaskBase : public IOTask
 {
 public:
-	PipeContextTaskBase(void* handle, PipeContextCallbcak* callback);
+	PipeContextTaskBase(const stream_handle_ptr& pipe_handle, PipeContextCallbcak* callback);
 
 	bool Run() final;
 
@@ -37,9 +37,11 @@ protected:
 
 	virtual void InternaleClose() = 0;
 
+	bool IsValid();
+
 protected:
 	bool closed_{ false };
-	void* handle_{ nullptr };
+	stream_handle_ptr handle_{ nullptr };
 	std::shared_mutex handle_lock_;
 
 	PipeContextCallbcak* callback_{ nullptr };

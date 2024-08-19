@@ -1,5 +1,8 @@
 #pragma once
 
+using boost_stream_handle = boost::asio::windows::stream_handle;
+using stream_handle_ptr = std::shared_ptr<boost_stream_handle>;
+
 class PipeMgr :
     public IPipeMgr,
     public Base::CObjectImpl<PipeMgr>
@@ -26,7 +29,7 @@ public:
 
     smart_result InternalCreateServer(const wchar_t* pipe_name, IPipeServerCallback* server_callback);
 
-    smart_result AsynWaitClientConnect(void* pipe_handle, const wchar_t* pipe_name, IPipeServerCallbackPtr server_callback);
+    smart_result AsynWaitClientConnect(stream_handle_ptr& handle, const wchar_t* pipe_name, IPipeServerCallbackPtr server_callback);
 
 private:
     using ServerList = std::map<std::wstring, IPipeServerPtr>;

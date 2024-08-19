@@ -143,7 +143,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SOLDIERS_3RD)/curl/include;$(SOLDIERS_PUBLIC)/include;$(SOLDIERS_INTERFACE)/;$(SOLDIERS_3RD)/glog/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SOLDIERS_3RD)/curl/include;$(SOLDIERS_PUBLIC)/include;$(SOLDIERS_INTERFACE)/;$(SOLDIERS_3RD)/glog/include;$(SOLDIERS_3RD)/boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
@@ -155,7 +155,7 @@
       <EnableUAC>false</EnableUAC>
       <ModuleDefinitionFile>demo.def</ModuleDefinitionFile>
       <AdditionalDependencies>glog-x86.lib;dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SOLDIERS_3RD)/glog/lib;$(SOLDIERS_3RD)\curl\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SOLDIERS_3RD)/glog/lib;$(SOLDIERS_3RD)\curl\lib;$(SOLDIERS_3RD)/boost/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-md|Win32'">

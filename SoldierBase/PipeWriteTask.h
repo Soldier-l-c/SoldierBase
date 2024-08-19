@@ -1,10 +1,10 @@
 #pragma once
 #include "PipeContextTaskBase.h"
 class PipeWriteTask :
-    public PipeContextTaskBase
+	public PipeContextTaskBase,public std::enable_shared_from_this<PipeWriteTask>
 {
 public:
-	PipeWriteTask(void* handle, PipeContextCallbcak* callback, void* data, uint32_t len);
+	PipeWriteTask(const stream_handle_ptr& pipe_handle, PipeContextCallbcak* callback, void* data, uint32_t len);
 
 protected:
 	virtual bool InternalRun();

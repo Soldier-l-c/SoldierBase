@@ -1,9 +1,9 @@
 #pragma once
 #include "PipeContextTaskBase.h"
-class PipeContextReadTask : public PipeContextTaskBase
+class PipeContextReadTask : public PipeContextTaskBase, public std::enable_shared_from_this<PipeContextReadTask>
 {
 public:
-	PipeContextReadTask(void* handle, PipeContextCallbcak* callback);
+	PipeContextReadTask(const stream_handle_ptr& pipe_handle, PipeContextCallbcak* callback);
 	~PipeContextReadTask();
 
 protected:
@@ -17,10 +17,11 @@ protected:
 
 	bool ReadData();
 
-	bool ReadData(void* data, uint32_t& len);
+	bool ReadHeader();
 
 private:
 	NsPipeData::DataHeader header_;
-	OVERLAPPED apped_;
-	bool pending_{ false };
+	helper::SmartAllocator<uint8_t> alloc_;
 };
+
+using AsynReaderPtr = std::shared_ptr<PipeContextReadTask>;

@@ -1,5 +1,6 @@
 #pragma once
 #include "PipeSessionBase.h"
+
 class PipeSessionServer :
     public PipeSessionBase,
     public Base::CObjectImpl<PipeSessionServer>
@@ -9,7 +10,7 @@ class PipeSessionServer :
         OBJECT_INTERFACE(ISmartBase)
     END_OBJECT_MAP();
 
-    PipeSessionServer(IPipeServerCallback* callback, void* pipe_handle, const std::wstring& pipe_name);
+    PipeSessionServer(IPipeServerCallback* callback, const stream_handle_ptr& pipe_handle, const std::wstring& pipe_name);
 
     virtual void OnDataRecived(uint8_t* data, int32_t len) override;
 

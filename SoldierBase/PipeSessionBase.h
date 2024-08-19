@@ -1,4 +1,5 @@
 #pragma once
+#include "PipeMgr.h"
 #include "PipeContextTaskBase.h"
 
 class PipeSessionBase : 
@@ -7,7 +8,7 @@ class PipeSessionBase :
 {
 public:
 
-	PipeSessionBase(void* pipe_handle, const std::wstring& pipe_name);
+	PipeSessionBase(const stream_handle_ptr& pipe_handle, const std::wstring& pipe_name);
 
 	virtual void Start();
 
@@ -18,16 +19,15 @@ public:
 	virtual void OnError(uint32_t err_code);
 
 protected:
-	bool AsynWrite(void* data, int32_t len);
 
-	bool SynWrite(void* data, int32_t len);
+	bool AsynWrite(void* data, int32_t len);
 
 	virtual void IniternalClose(uint32_t err_code) = 0;
 
 	bool AsynReadData();
 
 protected:
-	void* pipe_handle_{ nullptr };
+	stream_handle_ptr pipe_handle_{ nullptr };
 	std::wstring pipe_name_;
 	std::atomic_bool closed_{ false };
 };

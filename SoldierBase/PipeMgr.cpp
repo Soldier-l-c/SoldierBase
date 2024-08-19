@@ -52,6 +52,8 @@ smart_result _stdcall PipeMgr::CloseServer(const wchar_t* pipe_name)
     {
         item->Close();
     }
+
+    return err_code::s_ok;
 }
 
 smart_result _stdcall PipeMgr::ConnectToServer(const wchar_t* pipe_name, IPipeClientCallback* client_callback)
@@ -73,8 +75,10 @@ smart_result _stdcall PipeMgr::ConnectToServer(const wchar_t* pipe_name, IPipeCl
         return err_code::e_fail;
     }
 
+    auto& io_context = InternalIOContext::instance().IOContext();
+    auto handle = std::make_shared<boost_stream_handle>(io_context, pipe_handle);
     IPipeSessionPtr session;
-    PipeSessionClient::CreateInstanceEx(session, client_callback, pipe_handle, pipe_name);
+    PipeSessionClient::CreateInstanceEx(session, client_callback, handle, pipe_name);
 
     auto pclient_session = dynamic_cast<PipeSessionClient*>(session.GetInterface());
     pclient_session->Start();
@@ -123,7 +127,7 @@ smart_result PipeMgr::InternalCreateServer(const wchar_t* pipe_name, IPipeServer
     auto pipe_handle=::CreateNamedPipe(pipe_name,
         PIPE_ACCESS_DUPLEX | FILE_FLAG_OVERLAPPED,
         PIPE_TYPE_BYTE | PIPE_READMODE_BYTE | PIPE_WAIT,
-        PIPE_UNLIMITED_INSTANCES, 1024, 1024, NMPWAIT_USE_DEFAULT_WAIT, NULL
+        PIPE_UNLIMITED_INSTANCES, 4096, 4096, NMPWAIT_USE_DEFAULT_WAIT, NULL
     );
 
     if (pipe_handle == nullptr || pipe_handle == INVALID_HANDLE_VALUE)
@@ -132,77 +136,48 @@ smart_result PipeMgr::InternalCreateServer(const wchar_t* pipe_name, IPipeServer
         return err_code::e_fail;
     }
 
-    return AsynWaitClientConnect(pipe_handle, pipe_name, server_callback);
+    auto& io_context = InternalIOContext::instance().IOContext();
+    auto handle = std::make_shared<boost_stream_handle>(io_context, pipe_handle);
+
+    return AsynWaitClientConnect(handle, pipe_name, server_callback);
 }
 
-smart_result PipeMgr::AsynWaitClientConnect(void* pipe_handle, const wchar_t* pipe_name, IPipeServerCallbackPtr server_callback)
+smart_result PipeMgr::AsynWaitClientConnect(stream_handle_ptr& handle, const wchar_t* pipe_name, IPipeServerCallbackPtr server_callback)
 {
     std::wstring pipename = pipe_name;
 
-    InternalIOContext::instance().AddTask([this, pipe_handle, pipename, server_callback]
+    auto create_session_func = [this, server_callback, pipename, handle](boost::system::error_code const& error, size_t bytesTransferred)
+    {
+        IPipeSessionPtr session;
+        PipeSessionServer::CreateInstanceEx(session, server_callback, handle, pipename.c_str());
+        server_callback->OnConnect(session);
+
+        auto pserver_session = dynamic_cast<PipeSessionServer*>(session.GetInterface());
+        pserver_session->Start();
+
+        AddSession(pipename.c_str(), session);
+
+        InternalCreateServer(pipename.c_str(), server_callback);
+    };
+
+    InternalIOContext::instance().AddTask([this, handle, create_session_func]
         {
-            //连接完成后，系统会将OVERLAPPED的hEvent设置为已通知状态事件
-            //这里创建一个事件赋值给hEvent，用来监控其改变
-            auto hevent = CreateEvent(NULL, TRUE, FALSE, NULL);
-            if (hevent == NULL || hevent == INVALID_HANDLE_VALUE)
+            auto& io_context = InternalIOContext::instance().IOContext();
+
+            boost::asio::windows::overlapped_ptr overlapped(io_context, std::move(create_session_func));
+            ::ConnectNamedPipe(handle->native_handle(), overlapped.get());
+           
+            auto last_error = ::GetLastError();
+
+            if (last_error != ERROR_IO_PENDING)
             {
-                CloseHandle(pipe_handle);
-                return;
+                boost::system::error_code error(last_error, boost::asio::error::get_system_category());
+                overlapped.complete(error, 0);
             }
-
-            //2.等待客户端的连接
-            OVERLAPPED ovlap;
-            memset(&ovlap,0, sizeof(OVERLAPPED));//底层调用的memset
-            ovlap.hEvent = hevent;
-            bool connected{ false };
-
-            if (!::ConnectNamedPipe(pipe_handle, &ovlap)) 
+            else
             {
-                auto ret = ::GetLastError();
-                if (ERROR_PIPE_CONNECTED == ret)
-                {
-                    connected = true;
-                }
-
-                //标准判断操作
-                if (ERROR_PIPE_CONNECTED != ret && ERROR_IO_PENDING != ret)
-                {
-                    LOG(ERROR) << "ConnectNamedPipe failed:[" << ret << "]";
-                    CloseHandle(pipe_handle);
-                    return;
-                }
+                overlapped.release();
             }
-
-            if (!connected)
-            {
-                auto wait_res = WaitForSingleObject(hevent, 50);
-
-                if (wait_res == WAIT_FAILED)
-                {
-                    CloseHandle(pipe_handle);
-                    CloseHandle(hevent);
-                    LOG(ERROR) << "WaitForSingleObject failed:[" << wait_res << "]";
-                    return;
-                }
-
-                if (wait_res == WAIT_TIMEOUT)
-                {
-                    AsynWaitClientConnect(pipe_handle, pipename.c_str(), server_callback);
-                    return;
-                }
-            }
-
-            IPipeSessionPtr session;
-            PipeSessionServer::CreateInstanceEx(session, server_callback, pipe_handle, pipename.c_str());
-            server_callback->OnConnect(session);
-
-            auto pserver_session = dynamic_cast<PipeSessionServer*>(session.GetInterface());
-            pserver_session->Start();
-
-            AddSession(pipename.c_str(), session);
-
-            InternalCreateServer(pipename.c_str(), server_callback);
-
         });
 
     return err_code::s_ok;

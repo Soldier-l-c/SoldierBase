@@ -1,21 +1,34 @@
 #include "pch.h"
 #include "PipeWriteTask.h"
 
-PipeWriteTask::PipeWriteTask(void* handle, PipeContextCallbcak* callback, void* data, uint32_t len) :PipeContextTaskBase(handle, callback)
+PipeWriteTask::PipeWriteTask(const stream_handle_ptr& pipe_handle, PipeContextCallbcak* callback, void* data, uint32_t len) :PipeContextTaskBase(pipe_handle, callback)
 {
 	InitDataBuffer(data, len);
 }
 
 bool PipeWriteTask::InternalRun()
 {
-	DWORD len{ 0 };
-	::WriteFile(handle_, data_buffer_->data(), data_buffer_->size(), &len, nullptr);
-	if (len != data_buffer_->size())
+	if (!IsValid())
 	{
-		callback_->OnError(::GetLastError());
+		callback_->OnError(-3);
+		return false;
 	}
 
-	return false;
+	auto* pdata = data_buffer_->data();
+	auto ndata = data_buffer_->size();
+
+	auto task = [this, self = shared_from_this(), safe_data = std::move(data_buffer_)](const boost::system::error_code& error, std::size_t cb)
+	{
+		if (error.failed() || cb != safe_data->size())
+		{
+			callback_->OnError(error.value());
+			return;
+		}
+	};
+
+	handle_->async_write_some(boost::asio::buffer(pdata, ndata), std::move(task));
+
+	return true;
 }
 
 void PipeWriteTask::InternaleClose()

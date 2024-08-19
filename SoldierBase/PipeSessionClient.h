@@ -10,7 +10,7 @@ class PipeSessionClient :
         OBJECT_INTERFACE(ISmartBase)
     END_OBJECT_MAP();
 
-    PipeSessionClient(IPipeClientCallback* callback, void* pipe_handle, const std::wstring& pipe_name);
+    PipeSessionClient(IPipeClientCallback* callback, const stream_handle_ptr& pipe_handle, const std::wstring& pipe_name);
 
     virtual void OnDataRecived(uint8_t* data, int32_t len) override;
 

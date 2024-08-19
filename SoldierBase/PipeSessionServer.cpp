@@ -2,7 +2,7 @@
 #include "PipeSessionServer.h"
 #include "PipeMgr.h"
 
-PipeSessionServer::PipeSessionServer(IPipeServerCallback* callback, void* pipe_handle, const std::wstring& pipe_name):
+PipeSessionServer::PipeSessionServer(IPipeServerCallback* callback, const stream_handle_ptr& pipe_handle, const std::wstring& pipe_name):
 	callback_(callback),PipeSessionBase(pipe_handle, pipe_name)
 {
 }
@@ -20,8 +20,8 @@ void PipeSessionServer::OnError(uint32_t err_code)
 
 void PipeSessionServer::IniternalClose(uint32_t err_code)
 {
-	::DisconnectNamedPipe(pipe_handle_);
-	pipe_handle_ = nullptr;
+	::DisconnectNamedPipe(pipe_handle_->native_handle());
+	pipe_handle_->close();
 	callback_->OnDisconnect(this, err_code);
 	callback_ = nullptr;
 }

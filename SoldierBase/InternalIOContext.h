@@ -14,26 +14,28 @@ class InternalIOContext
 	SINGLE_INSTANCE(InternalIOContext);
 
 public:
+
+	void Init();
+
+	void UnInit();
+
 	void AddTask(const IOTaskPtr& task);
 
 	void AddTask(const IOTaskFunc& func);
 
-	void Stop();
+	boost::asio::io_context& IOContext();
 
 private:
-	InternalIOContext();
-	
-	void ExecTask();
+	void InternalInit();
 
-	void EraseTask(const IOTaskPtr& task);
+	void InternalUinit();
 
 private:
-	std::vector<IOTaskPtr> task_list_;
 
-	std::vector<IOTaskFunc> func_list_;
+	using IOWrokPtr = std::unique_ptr<boost::asio::io_context::work>;
 
-	std::mutex list_lock_;
-	std::condition_variable cv_list_;
-	bool stop_{ false };
+	IOWrokPtr io_work_;
+	boost::asio::io_context io_context_;
+	std::once_flag int_once_flag_;
 };
 
