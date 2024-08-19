@@ -7,3 +7,7 @@
 基于libcurl的网络帮助接口
 ## Logger
 基于glog的日志帮助接口
+## PipeMgr
+windows平台管道疯转
+## Timer
+定时器
