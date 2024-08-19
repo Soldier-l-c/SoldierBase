@@ -108,7 +108,8 @@ void PipeMgr::RemoveSession(const wchar_t* pipe_name, const IPipeSessionPtr& ses
     auto iter = session_list_.find(pipe_name);
     if (iter == session_list_.end())return ;
 
-    auto session_iter = std::find(iter->second.begin(), iter->second.end(), session);
+    auto session_iter = std::find_if(iter->second.begin(), iter->second.end(),
+        [session](const IPipeSessionPtr& s) {return (s == session);});
 
     if (session_iter != iter->second.end())
     {

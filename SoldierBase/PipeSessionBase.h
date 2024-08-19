@@ -10,6 +10,8 @@ public:
 
 	PipeSessionBase(const stream_handle_ptr& pipe_handle, const std::wstring& pipe_name);
 
+	~PipeSessionBase();
+
 	virtual void Start();
 
 	virtual smart_result _stdcall Write(void* data, int32_t len);
@@ -17,6 +19,8 @@ public:
 	virtual smart_result _stdcall Close();
 
 	virtual void OnError(uint32_t err_code);
+
+	bool IsValid();
 
 protected:
 

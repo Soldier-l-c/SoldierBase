@@ -11,9 +11,6 @@ bool PipeContextTaskBase::Run()
 {
 	ReadLock lock(handle_lock_);
 
-	if (!handle_ || INVALID_HANDLE_VALUE == handle_->native_handle() || closed_)
-		return false;
-
 	return InternalRun();
 }
 
