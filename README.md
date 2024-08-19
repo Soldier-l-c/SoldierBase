@@ -8,6 +8,6 @@
 ## Logger
 基于glog的日志帮助接口
 ## PipeMgr
-windows平台管道疯转
+windows平台命名管道封装
 ## Timer
 定时器
