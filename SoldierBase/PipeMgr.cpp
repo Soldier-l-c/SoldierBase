@@ -60,7 +60,7 @@ smart_result _stdcall PipeMgr::ConnectToServer(const wchar_t* pipe_name, IPipeCl
 {
     if (!pipe_name || !client_callback)return err_code::e_invalidarg;
 
-    auto pipe_handle = CreateFile(pipe_name,
+    auto pipe_handle = CreateFile(GetRealPipeName(pipe_name).c_str(),
         GENERIC_READ | GENERIC_WRITE,
         0,
         NULL,
@@ -124,7 +124,7 @@ void PipeMgr::AddSession(const wchar_t* pipe_name, const IPipeSessionPtr& sessio
 
 smart_result PipeMgr::InternalCreateServer(const wchar_t* pipe_name, IPipeServerCallback* server_callback)
 {
-    auto pipe_handle=::CreateNamedPipe(pipe_name,
+    auto pipe_handle=::CreateNamedPipe(GetRealPipeName(pipe_name).c_str(),
         PIPE_ACCESS_DUPLEX | FILE_FLAG_OVERLAPPED,
         PIPE_TYPE_BYTE | PIPE_READMODE_BYTE | PIPE_WAIT,
         PIPE_UNLIMITED_INSTANCES, 4096, 4096, NMPWAIT_USE_DEFAULT_WAIT, NULL
@@ -181,4 +181,10 @@ smart_result PipeMgr::AsynWaitClientConnect(stream_handle_ptr& handle, const wch
         });
 
     return err_code::s_ok;
+}
+
+std::wstring PipeMgr::GetRealPipeName(const wchar_t* pipe_name)
+{
+    static const wchar_t* PipePreFix = L"\\\\.\\pipe\\";
+    return std::wstring(PipePreFix) + pipe_name;
 }

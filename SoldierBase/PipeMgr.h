@@ -31,6 +31,8 @@ public:
 
     smart_result AsynWaitClientConnect(stream_handle_ptr& handle, const wchar_t* pipe_name, IPipeServerCallbackPtr server_callback);
 
+    std::wstring GetRealPipeName(const wchar_t* pipe_name);
+
 private:
     using ServerList = std::map<std::wstring, IPipeServerPtr>;
     using SessionList = std::map<std::wstring, std::vector<IPipeSessionPtr>>;
