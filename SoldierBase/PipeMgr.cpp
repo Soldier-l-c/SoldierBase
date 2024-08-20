@@ -158,7 +158,7 @@ smart_result PipeMgr::AsynWaitClientConnect(stream_handle_ptr& handle, const wch
 
         AddSession(pipename.c_str(), session);
 
-        //Ò»¸öÁ´½ÓÒÑ¾­½¨Á¢³É¹¦£¬ÔÙÒì²½µÈ´ıÏÂÒ»¸öÁ´½Ó
+        //ä¸€ä¸ªé“¾æ¥å·²ç»å»ºç«‹æˆåŠŸï¼Œå†å¼‚æ­¥ç­‰å¾…ä¸‹ä¸€ä¸ªé“¾æ¥
         InternalCreateServer(pipename.c_str(), server_callback);
     };
 

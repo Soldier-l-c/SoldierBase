@@ -51,7 +51,7 @@ bool PipeContextReadTask::ReadData()
 		return false;
 	}
 
-	//self ·ÀÖ¹±»Îö¹¹
+	//self é˜²æ­¢è¢«æžæž„
 	auto task = [this, self = shared_from_this(), buffer](const boost::system::error_code& error, std::size_t cb)
 	{
 		if (error.failed() || cb != (header_.data_length))
@@ -64,7 +64,7 @@ bool PipeContextReadTask::ReadData()
 
 		self->alloc_.Deallocate();
 
-		//Òì²½¶ÁÈ¡Êý¾ÝÍ·
+		//å¼‚æ­¥è¯»å–æ•°æ®å¤´
 		ReadHeader();
 	};
 
@@ -93,7 +93,7 @@ bool PipeContextReadTask::ReadHeader()
 			return;
 		}
 
-		//Òì²½¶ÁÈ¡Êý¾ÝÌå
+		//å¼‚æ­¥è¯»å–æ•°æ®ä½“
 		self->ReadData();
 	};
 

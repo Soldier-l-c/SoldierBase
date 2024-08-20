@@ -36,7 +36,7 @@ void TimerMgr::AddTimer(uint32_t time_id, BASE_TIMER_CALLBACK call_back, void* c
 void TimerMgr::Stop()
 {
 	std::unique_lock<std::mutex> lock(list_lock_);
-	stop_ = true; //´Ë´¦¿ÉÄÜ»áÓĞ¶àÏß³ÌÎÊÌâ£¬µ«Ïà±ÈÓÚ¶Ôstop_¼ÓËø£¬Õâ¸ö¸ü»®ËãÒ»Ğ©
+	stop_ = true; //æ­¤å¤„å¯èƒ½ä¼šæœ‰å¤šçº¿ç¨‹é—®é¢˜ï¼Œä½†ç›¸æ¯”äºå¯¹stop_åŠ é”ï¼Œè¿™ä¸ªæ›´åˆ’ç®—ä¸€äº›
 	cv_list_.notify_all();
 }
 

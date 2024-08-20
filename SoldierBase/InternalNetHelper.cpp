@@ -134,7 +134,7 @@ bool InternalNetHelper::HttpRequest(const HttpRequestInfoPtr& sp_info)
 		curl_easy_setopt(hcurl, CURLOPT_POSTFIELDS, sp_info->body.c_str());
 	}
 
-	//²»ÉèÖÃ´úÀí
+	//ä¸è®¾ç½®ä»£ç†
 	curl_easy_setopt(hcurl, CURLOPT_PROXY, "");
 	curl_easy_setopt(hcurl, CURLOPT_PROXYTYPE, -1L);
 
@@ -197,7 +197,7 @@ bool InternalNetHelper::DownloadFile(const DownloadFileInfoPtr& sp_info)
 		return false;
 	}
 
-	// ²»Ğ£ÑéhttpsÖ¤Êé
+	// ä¸æ ¡éªŒhttpsè¯ä¹¦
 	curl_easy_setopt(hcurl, CURLOPT_SSL_VERIFYPEER, 0L);
 	curl_easy_setopt(hcurl, CURLOPT_SSL_VERIFYHOST, 0L);
 
@@ -205,7 +205,7 @@ bool InternalNetHelper::DownloadFile(const DownloadFileInfoPtr& sp_info)
 	curl_easy_setopt(hcurl, CURLOPT_WRITEDATA, &recv_item);
 	curl_easy_setopt(hcurl, CURLOPT_WRITEFUNCTION, callback);
 
-	//²»ÉèÖÃ´úÀí
+	//ä¸è®¾ç½®ä»£ç†
 	curl_easy_setopt(hcurl, CURLOPT_PROXY, "");
 	curl_easy_setopt(hcurl, CURLOPT_PROXYTYPE, -1);
 	

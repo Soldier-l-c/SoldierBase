@@ -51,7 +51,7 @@ private:
 	void* file_handle_{ nullptr };
 
 	uint8_t write_count_{ 0 };
-	const uint8_t count_to_log_date_{ 20 };//Ä¬ÈÏÃ¿20ĞĞÈÕÖ¾´òÓ¡Ò»´ÎÈÕÆÚ
+	const uint8_t count_to_log_date_{ 20 };//é»˜è®¤æ¯20è¡Œæ—¥å¿—æ‰“å°ä¸€æ¬¡æ—¥æœŸ
 	const uint64_t max_file_size_{ 30 * 1024 * 1024 };
 
 	std::wstring log_dir_;
