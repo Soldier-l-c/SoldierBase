@@ -13,7 +13,7 @@ DataItem::~DataItem()
 	Clear();
 }
 
-smart_result DataItem::GetString(char* buffer, int32_t* len)
+smart_result DataItem::GetString(char* buffer, size_t* len)
 {
 	if (type != DataType::STRING)
 	{
@@ -44,7 +44,7 @@ smart_result DataItem::GetString(char* buffer, int32_t* len)
 	return smart_result();
 }
 
-smart_result DataItem::GetWString(wchar_t* buffer, int32_t* len)
+smart_result DataItem::GetWString(wchar_t* buffer, size_t* len)
 {
 	if (type != DataType::WSTRING)
 	{

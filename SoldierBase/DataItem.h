@@ -58,8 +58,8 @@ public:
 		memcpy((void*)&data, (void*)&val, sizeof(T));
 	}
 
-	smart_result  GetString(char* buffer, int32_t* len);
-	smart_result  GetWString(wchar_t* buffer, int32_t* len);
+	smart_result  GetString(char* buffer, size_t* len);
+	smart_result  GetWString(wchar_t* buffer, size_t* len);
 	smart_result  GetInterface(ISmartBase** intf);
 
 	smart_result  SetString(const char* buffer);

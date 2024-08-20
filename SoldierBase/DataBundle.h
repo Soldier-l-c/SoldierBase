@@ -11,8 +11,8 @@ class DataBundle :
 		OBJECT_INTERFACE(ISmartBase)
 	END_OBJECT_MAP();
 
-	virtual smart_result __stdcall GetString(const char* key, char* buffer, int32_t* len);
-	virtual smart_result __stdcall GetWString(const char* key, wchar_t* buffer, int32_t* len);
+	virtual smart_result __stdcall GetString(const char* key, char* buffer, size_t* len);
+	virtual smart_result __stdcall GetWString(const char* key, wchar_t* buffer, size_t* len);
 	virtual smart_result __stdcall GetInt(const char* key, int32_t* val);
 	virtual smart_result __stdcall GetInt64(const char* key, int64_t* val);
 	virtual smart_result __stdcall GetUInt(const char* key, uint32_t* val);

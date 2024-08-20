@@ -51,7 +51,7 @@ smart_result __stdcall DataArray::GetUInt64(uint32_t index, uint64_t* val)
 	return ::err_code::s_ok;
 }
 
-smart_result __stdcall DataArray::GetString(uint32_t index, char* buffer, int32_t* len)
+smart_result __stdcall DataArray::GetString(uint32_t index, char* buffer, size_t* len)
 {
 	if (!len)return ::err_code::e_invalidarg;
 
@@ -60,7 +60,7 @@ smart_result __stdcall DataArray::GetString(uint32_t index, char* buffer, int32_
 	return data_list_[index]->GetString(buffer, len);
 }
 
-smart_result __stdcall DataArray::GetWString(uint32_t index, wchar_t* buffer, int32_t* len)
+smart_result __stdcall DataArray::GetWString(uint32_t index, wchar_t* buffer, size_t* len)
 {
 	if (!len)return ::err_code::e_invalidarg;
 

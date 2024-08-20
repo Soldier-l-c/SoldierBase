@@ -20,7 +20,7 @@ using namespace NsDataItem;
 		iter->second = std::move(value);\
 	}
 
-smart_result __stdcall DataBundle::GetString(const char* key, char* buffer, int32_t* len)
+smart_result __stdcall DataBundle::GetString(const char* key, char* buffer, size_t * len)
 {
 	if (!key || !len)return err_code::e_invalidarg;
 
@@ -29,7 +29,7 @@ smart_result __stdcall DataBundle::GetString(const char* key, char* buffer, int3
 	return iter->second->GetString(buffer, len);
 }
 
-smart_result __stdcall DataBundle::GetWString(const char* key, wchar_t* buffer, int32_t* len)
+smart_result __stdcall DataBundle::GetWString(const char* key, wchar_t* buffer, size_t* len)
 {
 	if (!key || !len)return err_code::e_invalidarg;
 

@@ -50,9 +50,9 @@ private:
 
 	void* file_handle_{ nullptr };
 
-	int32_t write_count_{ 0 };
-	const int32_t count_to_log_date_{ 20 };//默认每20行日志打印一次日期
-	const int32_t max_file_size_{ 30 * 1024 * 1024 };
+	uint8_t write_count_{ 0 };
+	const uint8_t count_to_log_date_{ 20 };//默认每20行日志打印一次日期
+	const uint64_t max_file_size_{ 30 * 1024 * 1024 };
 
 	std::wstring log_dir_;
 	std::wstring log_name_;

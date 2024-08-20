@@ -18,8 +18,8 @@ class DataArray :
 	virtual smart_result __stdcall GetInt64(uint32_t index, int64_t* val);
 	virtual smart_result __stdcall GetUInt64(uint32_t index, uint64_t* val);
 
-	virtual smart_result __stdcall GetString(uint32_t index, char* buffer, int32_t* len);
-	virtual smart_result __stdcall GetWString(uint32_t index, wchar_t* buffer, int32_t* len);
+	virtual smart_result __stdcall GetString(uint32_t index, char* buffer, size_t* len);
+	virtual smart_result __stdcall GetWString(uint32_t index, wchar_t* buffer, size_t* len);
 	virtual smart_result __stdcall GetInterface(uint32_t index, ISmartBase** intf);
 	virtual smart_result __stdcall GetPointer(uint32_t index, void** intf);
 
