@@ -44,7 +44,7 @@
 #include <logger/ILogger.h>
 
 #include <boost/asio.hpp>
-#include <boost/process/pipe.hpp>
+#include <boost/process/v1/pipe.hpp>
 using boost_stream_handle = boost::asio::windows::stream_handle;
 using stream_handle_ptr = std::shared_ptr<boost_stream_handle>;
 
