@@ -153,7 +153,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <ModuleDefinitionFile>demo.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>SoldierBase.def</ModuleDefinitionFile>
       <AdditionalDependencies>glog-x86.lib;dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SOLDIERS_3RD)/glog/lib;$(SOLDIERS_3RD)\curl\lib;$(SOLDIERS_3RD)/boost/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
@@ -256,6 +256,7 @@
     <ClInclude Include="PipeSessionClient.h" />
     <ClInclude Include="PipeSessionServer.h" />
     <ClInclude Include="PipeWriteTask.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SoldierBase.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerMgr.h" />
@@ -294,7 +295,10 @@
     <ClCompile Include="TimerMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="demo.def" />
+    <ResourceCompile Include="SoldierBase.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SoldierBase.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

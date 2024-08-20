@@ -117,6 +117,9 @@
     <ClInclude Include="PipeMgr.h">
       <Filter>Pipe</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>资源文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -187,7 +190,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="demo.def">
+    <ResourceCompile Include="SoldierBase.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SoldierBase.def">
       <Filter>源文件</Filter>
     </None>
   </ItemGroup>

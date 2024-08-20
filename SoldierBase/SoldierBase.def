@@ -1,4 +1,4 @@
-LIBRARY "Demo"
+LIBRARY "SoldierBase"
 
 EXPORTS
   CreateObject @1
