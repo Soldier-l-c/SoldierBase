@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "PipeSessionClient.h"
 
 PipeSessionClient::PipeSessionClient(IPipeClientCallback* callback, const stream_handle_ptr& pipe_handle, const std::wstring& pipe_name):

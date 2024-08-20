@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 using boost_stream_handle = boost::asio::windows::stream_handle;
 using stream_handle_ptr = std::shared_ptr<boost_stream_handle>;

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #define USE_INTERNAL_LOG
 
 #ifndef USE_INTERNAL_LOG

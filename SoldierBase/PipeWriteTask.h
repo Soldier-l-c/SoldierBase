@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "PipeContextTaskBase.h"
 class PipeWriteTask :
 	public PipeContextTaskBase,public std::enable_shared_from_this<PipeWriteTask>

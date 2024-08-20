@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <base/IDataArray.h>
 #include "DataItem.h"
 

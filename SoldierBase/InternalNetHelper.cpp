@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "InternalNetHelper.h"
 
 static size_t callback(void* data, size_t size, size_t nmemb, void* userp)

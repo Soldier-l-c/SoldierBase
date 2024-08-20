@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "PipeContextTaskBase.h"
 
 PipeContextTaskBase::PipeContextTaskBase(const stream_handle_ptr& pipe_handle, PipeContextCallbcak* callback):

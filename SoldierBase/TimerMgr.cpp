@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "TimerMgr.h"
 
 TimerItem::TimerItem(uint32_t timer_id, void* context, BASE_TIMER_CALLBACK callback, uint32_t interval, int32_t count):

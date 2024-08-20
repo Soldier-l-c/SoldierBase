@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "PipeMgr.h"
 #include "PipeContextTaskBase.h"
 

@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "InternalLogger.h"
 
 void InternalBaseLogger::Init(const wchar_t* log_path)

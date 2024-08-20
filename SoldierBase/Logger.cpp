@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Logger.h"
 
 void __stdcall Logger::Init(const wchar_t* log_path)

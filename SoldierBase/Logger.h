@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "InternalLogger.h"
 
 class Logger :public ILogger, public Base::CObjectImpl<Logger>

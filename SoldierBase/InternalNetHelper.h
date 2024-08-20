@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #ifndef CURL_STATICLIB
 #ifdef WIN32

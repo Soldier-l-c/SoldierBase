@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "PipeWriteTask.h"
 
 PipeWriteTask::PipeWriteTask(const stream_handle_ptr& pipe_handle, PipeContextCallbcak* callback, void* data, uint32_t len) :PipeContextTaskBase(pipe_handle, callback)
@@ -17,7 +17,7 @@ bool PipeWriteTask::InternalRun()
 	auto* pdata = data_buffer_->data();
 	auto ndata = data_buffer_->size();
 
-	//self ·ÀÖ¹±»Îö¹¹
+	//self é˜²æ­¢è¢«æžæž„
 	auto task = [this, self = shared_from_this(), safe_data = std::move(data_buffer_)](const boost::system::error_code& error, std::size_t cb)
 	{
 		if (error.failed() || cb != safe_data->size())

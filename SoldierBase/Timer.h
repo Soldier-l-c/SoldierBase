@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <base/ITimer.h>
 class Timer :
     public ITimer,

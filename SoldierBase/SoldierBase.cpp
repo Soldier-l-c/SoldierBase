@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "SoldierBase.h"
 #include "CrashMgr.h"
 #include "InternalIOContext.h"
