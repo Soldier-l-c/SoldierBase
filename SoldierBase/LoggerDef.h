@@ -1,8 +1,13 @@
 ﻿#pragma once
+
 #define USE_INTERNAL_LOG
 
 #ifndef USE_INTERNAL_LOG
+#ifdef RELEASE_MD
 #define USEGLOG
+#else
+#define USE_INTERNAL_LOG
+#endif
 #endif
 
 #ifdef USEGLOG

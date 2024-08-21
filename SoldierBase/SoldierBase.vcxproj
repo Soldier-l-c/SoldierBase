@@ -164,14 +164,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;DEMO_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;DEMO_EXPORTS;_WINDOWS;_USRDLL;RELEASE_MD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SOLDIERS_3RD)/curl/include;$(SOLDIERS_PUBLIC)/include;$(SOLDIERS_INTERFACE)/;$(SOLDIERS_3RD)/glog/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SOLDIERS_3RD)/curl/include;$(SOLDIERS_PUBLIC)/include;$(SOLDIERS_INTERFACE)/;$(SOLDIERS_3RD)/glog/include;$(SOLDIERS_3RD)/boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -179,7 +179,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <ModuleDefinitionFile>demo.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>SoldierBase.def</ModuleDefinitionFile>
       <AdditionalLibraryDirectories>$(SOLDIERS_3RD)/glog/lib;$(SOLDIERS_3RD)\curl\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glog-x86.lib;dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
