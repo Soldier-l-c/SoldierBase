@@ -82,9 +82,6 @@ bool PipeContextReadTask::ReadHeader()
 		return false;
 	}
 
-	memset(&header_, 0, sizeof(header_));
-	uint32_t len{ sizeof(header_) };
-
 	auto task = [this, self = shared_from_this()](const boost::system::error_code& error, std::size_t cb)
 	{
 		if (error.failed() || cb != sizeof(header_))
@@ -96,6 +93,8 @@ bool PipeContextReadTask::ReadHeader()
 		//异步读取数据体
 		self->ReadData();
 	};
+
+	memset(&header_, 0, sizeof(header_));
 
 	handle_->async_read_some(
 		boost::asio::buffer(&header_, sizeof(header_)), std::move(task));
