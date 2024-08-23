@@ -102,7 +102,7 @@ void NetHelper::BundleToInternalDownload(IDataBundleRead* request, DownloadFileI
 
 void NetHelper::InternalResponseToBundle(const CurlRequestBasePtr& sp_info, IDataBundleRead** response)
 {
-    auto bundle = NsBundleHelper::CreateObject<IDataBundlePtr>();
+    auto bundle = NsBaseHelper::CreateObject<IDataBundlePtr>();
     (*response) = bundle;
     bundle->addref();
 

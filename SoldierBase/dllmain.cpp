@@ -61,7 +61,7 @@ void InitLogger()
 EXTERN_C smart_result CreateObject(const GUID& guid, void** intf)
 {
     InitLogger();
-
+    
     CREATE_INSTANCE(IDemo,      guid, intf, Demo);
     CREATE_INSTANCE(ISoldierBase, guid, intf, SoldierBase);
     CREATE_INSTANCE(ILogger,    guid, intf, Logger);
