@@ -46,6 +46,9 @@
     <Filter Include="Pipe\ContextTask">
       <UniqueIdentifier>{05dc2a42-9226-45cb-a95e-3912d3a066e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="HashData">
+      <UniqueIdentifier>{81a8164b-a95b-48ab-9376-2b0b4b8558ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -120,6 +123,15 @@
     <ClInclude Include="resource.h">
       <Filter>资源文件</Filter>
     </ClInclude>
+    <ClInclude Include="HashData.h">
+      <Filter>HashData</Filter>
+    </ClInclude>
+    <ClInclude Include="InternalHash.h">
+      <Filter>HashData</Filter>
+    </ClInclude>
+    <ClInclude Include="InternalHashDef.h">
+      <Filter>HashData</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -187,6 +199,12 @@
     </ClCompile>
     <ClCompile Include="PipeServer.cpp">
       <Filter>Pipe</Filter>
+    </ClCompile>
+    <ClCompile Include="HashData.cpp">
+      <Filter>HashData</Filter>
+    </ClCompile>
+    <ClCompile Include="InternalHash.cpp">
+      <Filter>HashData</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

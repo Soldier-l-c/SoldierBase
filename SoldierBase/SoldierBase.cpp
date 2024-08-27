@@ -2,6 +2,7 @@
 #include "SoldierBase.h"
 #include "CrashMgr.h"
 #include "InternalIOContext.h"
+#include "InternalHash.h"
 
 smart_result __stdcall SoldierBase::Initialize()
 {
@@ -11,6 +12,8 @@ smart_result __stdcall SoldierBase::Initialize()
     CrashMgr::instance().Init();
 
     InternalIOContext::instance().Init();
+
+    InternalHash::instance().Init();
 
     return err_code::error_success;
 }

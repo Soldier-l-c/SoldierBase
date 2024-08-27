@@ -41,7 +41,12 @@
 #include <base/IDemo.h>
 #include <base/IPipe.h>
 #include <base/PipeHelper.h>
+#include <base/IHashData.h>
 #include <logger/ILogger.h>
+
+// openssl
+#include <openssl/md5.h>
+#include <openssl/sha.h>
 
 #include <boost/asio.hpp>
 #include <boost/process/v1/pipe.hpp>
@@ -54,6 +59,8 @@ using ReadLock = std::shared_lock<std::shared_mutex>;
 using WriteLock = std::unique_lock<std::shared_mutex>;
 
 using INTERNAL_HANDLE = void*;
+
+#define VERF_PTR(p)if(nullptr == p)return err_code::e_invalidarg;
 
 #ifdef WIN32
 #ifndef errno

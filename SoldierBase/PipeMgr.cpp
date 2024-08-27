@@ -149,6 +149,7 @@ smart_result PipeMgr::AsynWaitClientConnect(stream_handle_ptr& handle, const wch
 
     auto create_session_func = [this, server_callback, pipename, handle](boost::system::error_code const& error, size_t bytesTransferred)
     {
+        LOG(INFO) << "create_session_func error:[" << error.value() << "]";
         IPipeSessionPtr session;
         PipeSessionServer::CreateInstanceEx(session, server_callback, handle, pipename.c_str());
         server_callback->OnConnect(session);
