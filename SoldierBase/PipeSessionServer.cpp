@@ -23,5 +23,5 @@ void PipeSessionServer::IniternalClose(uint32_t err_code)
 	::DisconnectNamedPipe(pipe_handle_->native_handle());
 	pipe_handle_->close();
 	callback_->OnDisconnect(this, err_code);
-	callback_ = nullptr;
+	callback_ = static_cast<IPipeServerCallback*>(nullptr);
 }

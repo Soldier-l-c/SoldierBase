@@ -27,3 +27,13 @@ smart_result HashData::StringToData(const char* buffer, const size_t buffer_len,
 {
     return InternalHash::instance().StringToData(buffer, buffer_len, data);
 }
+
+smart_result __stdcall HashData::CalcFileHash(const wchar_t* file_path, NsHashData::HashType type, NsHashData::HashData& data)
+{
+    return smart_result();
+}
+
+smart_result __stdcall HashData::CalcFileHashString(const wchar_t* file_path, NsHashData::HashType type, NsHashData::HashStringData& data)
+{
+    return smart_result();
+}

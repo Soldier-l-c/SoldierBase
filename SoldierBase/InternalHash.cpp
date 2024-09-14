@@ -41,7 +41,7 @@ smart_result InternalHash::DataToString(const uint8_t* b, size_t len, HashString
 	auto p = data.data;
 	while (len--)
 	{
-		ByteToHexStr<char>(*(b++), p);
+		ByteToHexStr(*(b++), p);
 		p += 2;
 	}
 
@@ -66,10 +66,10 @@ smart_result InternalHash::StringToData(const char* buffer, size_t buffer_len, N
 		if (hi == -1 || lo == -1)
 			return err_code::e_fail;
 
-		data.data[i/2] = (hi << 4) | lo;
+		data.data[i >> 1] = (hi << 4) | lo;
 	}
 
-	data.length = buffer_len / 2;
+	data.length = buffer_len >> 1;
 
 	return err_code::error_success;
 }
@@ -125,7 +125,7 @@ const NsHashDef::HASH_FUNC_ITEM* InternalHash::QueryFuncItem(NsHashData::HashTyp
 {
 	NsHashDef::HASH_FUNC_ITEM* res{ nullptr };
 
-	for (auto i = 0; i< hash_cacl_list_.size(); ++i)
+	for (size_t i = 0; i< hash_cacl_list_.size(); ++i)
 	{
 		if (hash_cacl_list_[i].type == type)
 		{

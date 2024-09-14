@@ -15,5 +15,5 @@ void PipeSessionClient::IniternalClose(uint32_t err_code)
 {
 	pipe_handle_->close();
 	callback_->OnDisconnect(err_code);
-	callback_ = nullptr;
+	callback_ = static_cast<IPipeClientCallback*>(nullptr);
 }

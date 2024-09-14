@@ -33,7 +33,7 @@ class Demo :
     public IDemo
 {
 public:
-    Demo() { LOG(INFO) << "Demo"; };
+    Demo() { LOG(INFO) << L"Demo"; };
     virtual ~Demo() { LOG(INFO) << "~Demo"; };
 
 public:
