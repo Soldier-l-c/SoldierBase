@@ -96,7 +96,7 @@ uint32_t __stdcall DataArray::Count()
 
 smart_result __stdcall DataArray::Remove(uint32_t index)
 {
-	if (index > data_list_.size())return err_code::e_outof_index;
+	if (index >= data_list_.size())return err_code::e_outof_index;
 
 	data_list_.erase(data_list_.begin()+index);
 

@@ -104,7 +104,7 @@ smart_result DataItem::SetString(const char* buffer)
 	}
 	else
 	{
-		data.pstr_val[reallen] = 0;
+		data.pstr_val[0] = 0;
 	}
 
 	return err_code::s_ok;
@@ -125,7 +125,7 @@ smart_result DataItem::SetWString(const wchar_t* buffer)
 	}
 	else
 	{
-		data.pwstr_val[reallen] = 0;
+		data.pwstr_val[0] = 0;
 	}
 
 	return err_code::s_ok;
