@@ -17,6 +17,7 @@
 #include <vector>
 #include <vector>
 #include <functional>
+#include <fstream>
 
 #include <helper/util_time.h>
 #include <helper/util_string.h>
@@ -44,6 +45,7 @@
 #include <base/IHashData.h>
 #include <logger/ILogger.h>
 
+//#define OPENSSL_NO_DEPRECATED
 // openssl
 #include <openssl/md5.h>
 #include <openssl/sha.h>
@@ -60,7 +62,7 @@ using WriteLock = std::unique_lock<std::shared_mutex>;
 
 using INTERNAL_HANDLE = void*;
 
-#define VERF_PTR(p)if(nullptr == p)return err_code::e_invalidarg;
+#define VERIFY_PTR(p)if(nullptr == p)return err_code::e_invalidarg;
 
 #ifdef WIN32
 #ifndef errno

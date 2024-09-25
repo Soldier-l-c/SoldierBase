@@ -33,7 +33,7 @@ void ByteToHexStr(uint8_t c, Ch* str, bool up = false)
 
 smart_result InternalHash::DataToString(const uint8_t* b, size_t len, HashStringData& data)
 {
-	VERF_PTR(b);
+	VERIFY_PTR(b);
 	if (len > MAX_HASH_DATA_LENGTH)return err_code::e_invalidarg;
 
 	InitHashData(data);
@@ -52,7 +52,7 @@ smart_result InternalHash::DataToString(const uint8_t* b, size_t len, HashString
 
 smart_result InternalHash::StringToData(const char* buffer, size_t buffer_len, NsHashData::HashData& data)
 {
-	VERF_PTR(buffer);
+	VERIFY_PTR(buffer);
 	if (buffer_len > MAX_HASH_STRING_DATA_LENGTH)
 		return err_code::e_invalidarg;
 
@@ -86,9 +86,9 @@ smart_result InternalHash::CalcHash(const void* buffer, const size_t buffer_len,
 
 bool InternalHash::CalcHash(const uint8_t* buffer, const size_t buffer_len, NsHashData::HashType type, uint8_t* data, size_t* data_len)
 {
-	VERF_PTR(buffer);
-	VERF_PTR(data);
-	VERF_PTR(data_len);
+	VERIFY_PTR(buffer);
+	VERIFY_PTR(data);
+	VERIFY_PTR(data_len);
 
 	const auto& item = QueryFuncItem(type);
 	if (!item || *data_len < item->dest_len)
@@ -132,6 +132,6 @@ const NsHashDef::HASH_FUNC_ITEM* InternalHash::QueryFuncItem(NsHashData::HashTyp
 			res = &hash_cacl_list_[i];
 		}
 	}
-
+	
 	return  res;
 }

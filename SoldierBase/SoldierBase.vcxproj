@@ -244,6 +244,8 @@
     <ClInclude Include="DataItem.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="HashData.h" />
+    <ClInclude Include="InternalFile.h" />
+    <ClInclude Include="InternalFileHash.h" />
     <ClInclude Include="InternalHash.h" />
     <ClInclude Include="InternalHashDef.h" />
     <ClInclude Include="InternalNetHelper.h" />
@@ -273,6 +275,8 @@
     <ClCompile Include="DataItem.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="HashData.cpp" />
+    <ClCompile Include="InternalFile.cpp" />
+    <ClCompile Include="InternalFileHash.cpp" />
     <ClCompile Include="InternalHash.cpp" />
     <ClCompile Include="InternalNetHelper.cpp" />
     <ClCompile Include="Logger.cpp" />

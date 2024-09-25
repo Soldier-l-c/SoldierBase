@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "HashData.h"
 #include "InternalHash.h"
+#include "InternalFileHash.h"
 
 smart_result HashData::CalcHash(const char* buffer, const size_t buffer_len, NsHashData::HashType type, NsHashData::HashData& data)
 {
@@ -30,10 +31,16 @@ smart_result HashData::StringToData(const char* buffer, const size_t buffer_len,
 
 smart_result __stdcall HashData::CalcFileHash(const wchar_t* file_path, NsHashData::HashType type, NsHashData::HashData& data)
 {
-    return smart_result();
+    return InternalFileHash::instance().CalcFileHash(file_path, type, data);
 }
 
 smart_result __stdcall HashData::CalcFileHashString(const wchar_t* file_path, NsHashData::HashType type, NsHashData::HashStringData& data)
 {
-    return smart_result();
+    NsHashData::HashData hash_data;
+    auto res = CalcFileHash(file_path, type, hash_data);
+    if (smart_failed(res))return res;
+
+    const auto& hash_len = InternalHash::instance().GetHashLength(type);
+
+    return DataToString(hash_data.data, hash_len, data);
 }

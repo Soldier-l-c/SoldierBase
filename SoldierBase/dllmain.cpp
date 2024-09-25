@@ -72,6 +72,7 @@ EXTERN_C smart_result CreateObject(const GUID& guid, void** intf)
     CREATE_INSTANCE(ITimer,     guid, intf, Timer);
     CREATE_INSTANCE(IPipeMgr,   guid, intf, PipeMgr);
     CREATE_INSTANCE(IHashData,  guid, intf, HashData);
+    CREATE_INSTANCE(IHashFile,  guid, intf, HashData);
 
     return err_code::e_nointerface;
 }
