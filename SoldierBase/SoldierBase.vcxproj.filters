@@ -141,6 +141,12 @@
     <ClInclude Include="InternalFile.h">
       <Filter>InternalFile</Filter>
     </ClInclude>
+    <ClInclude Include="IInternalHash.h">
+      <Filter>HashData</Filter>
+    </ClInclude>
+    <ClInclude Include="HashObject.h">
+      <Filter>HashData</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -230,6 +236,9 @@
   <ItemGroup>
     <None Include="SoldierBase.def">
       <Filter>源文件</Filter>
+    </None>
+    <None Include="HashObject.inl">
+      <Filter>HashData</Filter>
     </None>
   </ItemGroup>
 </Project>

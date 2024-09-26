@@ -244,6 +244,8 @@
     <ClInclude Include="DataItem.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="HashData.h" />
+    <ClInclude Include="HashObject.h" />
+    <ClInclude Include="IInternalHash.h" />
     <ClInclude Include="InternalFile.h" />
     <ClInclude Include="InternalFileHash.h" />
     <ClInclude Include="InternalHash.h" />
@@ -275,6 +277,9 @@
     <ClCompile Include="DataItem.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="HashData.cpp" />
+    <None Include="HashObject.inl">
+      <FileType>Document</FileType>
+    </None>
     <ClCompile Include="InternalFile.cpp" />
     <ClCompile Include="InternalFileHash.cpp" />
     <ClCompile Include="InternalHash.cpp" />

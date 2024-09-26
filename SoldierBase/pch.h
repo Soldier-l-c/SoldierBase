@@ -64,6 +64,8 @@ using INTERNAL_HANDLE = void*;
 
 #define VERIFY_PTR(p)if(nullptr == p)return err_code::e_invalidarg;
 
+#define VERIFY_PTR_R(p, ret) if(nullptr ==p){LOG(ERROR)<<"NULL PTR! "<<__FILE__ <<" "<<__FUNCTION__; return ret;}
+
 #ifdef WIN32
 #ifndef errno
 #define errno ::GetLastError()

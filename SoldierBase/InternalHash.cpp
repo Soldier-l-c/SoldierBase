@@ -1,7 +1,29 @@
 #include "pch.h"
 #include "InternalHash.h"
+#include "HashObject.h"
 
 using namespace NsHashData;
+
+typedef HashObject<HashTypeMD5, MD5_CTX>		CMD5Object;
+typedef HashObject<HashTypeSHA1, SHA_CTX>		CSHA1Object;
+typedef HashObject<HashTypeSHA224, SHA256_CTX>	CSHA224Object;
+typedef HashObject<HashTypeSHA256, SHA256_CTX>	CSHA256Object;
+typedef HashObject<HashTypeSHA384, SHA512_CTX>	CSHA384Object;
+typedef HashObject<HashTypeSHA512, SHA512_CTX>	CSHA512Object;
+
+#ifndef SHA1_DIGEST_LENGTH
+#define SHA1_DIGEST_LENGTH SHA_DIGEST_LENGTH
+#endif
+
+#define HASH_OBJECT_ITEM_MAKER(item)\
+	{HashType##item, item##_DIGEST_LENGTH, \
+	(NsHashDef::CREATE_HASH_OBJECT)&C##item##Object::CreateHashObject,\
+	(NsHashDef::HASH_INIT) item##_Init,\
+	(NsHashDef::HASH_UPDATE) item##_Update,\
+	(NsHashDef::HASH_FINAL) item##_Final}
+
+#define HASH_FUNC_ITEM_MAKER(item)\
+	{HashType##item,item##_DIGEST_LENGTH,item}
 
 char DigitalToHexChar(uint8_t v, bool up)
 {
@@ -109,15 +131,39 @@ size_t InternalHash::GetHashLength(NsHashData::HashType type)
 	return item->dest_len;
 }
 
+NsHashDef::HASH_OBJECT_ITEM* InternalHash::QueryObjectItem(NsHashData::HashType type)
+{
+	NsHashDef::HASH_OBJECT_ITEM* res{ nullptr };
+
+	for (size_t i = 0; i < object_item_list_.size(); ++i)
+	{
+		if (object_item_list_[i].type_ == type)
+		{
+			res = &object_item_list_[i];
+		}
+	}
+
+	return  res;
+}
+
 void InternalHash::Init()
 {
 	hash_cacl_list_ = { 
-		{HashTypeMD5,	 MD5_DIGEST_LENGTH,	   MD5},
-		{HashTypeSHA1,	 SHA_DIGEST_LENGTH,	   SHA1},
-		{HashTypeSHA224, SHA224_DIGEST_LENGTH, SHA224},
-		{HashTypeSHA256, SHA256_DIGEST_LENGTH, SHA256},
-		{HashTypeSHA384, SHA384_DIGEST_LENGTH, SHA384},
-		{HashTypeSHA512, SHA512_DIGEST_LENGTH, SHA512},
+		HASH_FUNC_ITEM_MAKER(MD5),
+		HASH_FUNC_ITEM_MAKER(SHA1),
+		HASH_FUNC_ITEM_MAKER(SHA224),
+		HASH_FUNC_ITEM_MAKER(SHA256),
+		HASH_FUNC_ITEM_MAKER(SHA384),
+		HASH_FUNC_ITEM_MAKER(SHA512),
+	};
+
+	object_item_list_ = {
+		HASH_OBJECT_ITEM_MAKER(MD5),
+		HASH_OBJECT_ITEM_MAKER(SHA1),
+		HASH_OBJECT_ITEM_MAKER(SHA224),
+		HASH_OBJECT_ITEM_MAKER(SHA256),
+		HASH_OBJECT_ITEM_MAKER(SHA384),
+		HASH_OBJECT_ITEM_MAKER(SHA512),
 	};
 }
 

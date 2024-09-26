@@ -17,10 +17,14 @@ class InternalHash
 
 	size_t GetHashLength(NsHashData::HashType type);
 
+	NsHashDef::HASH_OBJECT_ITEM* QueryObjectItem(NsHashData::HashType type);
+
 private:
 	const NsHashDef::HASH_FUNC_ITEM* QueryFuncItem(NsHashData::HashType type);
 
 private:
 	std::vector<NsHashDef::HASH_FUNC_ITEM>hash_cacl_list_;
+
+	std::vector<NsHashDef::HASH_OBJECT_ITEM>object_item_list_;
 };
 
