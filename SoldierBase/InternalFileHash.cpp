@@ -31,9 +31,14 @@ smart_result InternalFileHash::CalcFileHash(const wchar_t* file_path, NsHashData
 	while (true)
 	{
 		auto read_size = file.Read(buffer, buffer_len);
+
 		if (read_size <= 0)
 			break;;
+
 		hash_object->Update(buffer, read_size);
+
+		if (read_size < buffer_len)
+			break;
 	}
 
 	hash_object->Final(data);

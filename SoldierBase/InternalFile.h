@@ -5,7 +5,7 @@ public:
 
 	~InternalFile();
 
-	bool Open(const wchar_t* path);
+	bool Open(const wchar_t* path, uint32_t mode = std::ios::in | std::ios::binary);
 
 	size_t Read(void* buffer, size_t buffer_size);
 

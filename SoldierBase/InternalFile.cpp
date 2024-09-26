@@ -9,12 +9,12 @@ InternalFile::~InternalFile()
 	}
 }
 
-bool InternalFile::Open(const wchar_t* path)
+bool InternalFile::Open(const wchar_t* path, uint32_t mode)
 {
 	if (!path)
 		return false;
 
-	file_.open(path);
+	file_.open(path, mode);
 	open_ = file_.is_open();
 
 	return open_;
@@ -23,20 +23,25 @@ bool InternalFile::Open(const wchar_t* path)
 size_t InternalFile::Read(void* buffer, size_t buffer_size)
 {
 	if (!open_)return 0;
-	file_.read((char*)buffer, buffer_size);
-	return file_.gcount() >0 && std::ios_base::goodbit == file_.rdstate();;
+	
+	return file_.read((char*)buffer, buffer_size).gcount();
 }
 
 size_t InternalFile::Write(const void* buffer, size_t buffer_size)
 {
 	if (!open_)return 0;
+
+	auto before = file_.tellg();
 	file_.write((const char*)buffer, buffer_size);
-	return std::ios_base::goodbit == file_.rdstate();
+	auto cur = file_.tellg();
+
+	return std::ios_base::goodbit == file_.rdstate() ? cur - before : 0;
 }
 
 bool InternalFile::Close()
 {
 	if (!open_)return true;
 	file_.close();
-	return !file_.is_open();
+	open_ = !file_.is_open();
+	return open_;
 }
