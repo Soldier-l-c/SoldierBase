@@ -4,7 +4,7 @@ using namespace NsDataArray;
 using namespace NsDataItem;
 
 #define CheckIndex(index, re_type)\
-	if (index > data_list_.size())return err_code::e_outof_index;\
+	if (index >= data_list_.size())return err_code::e_outof_index;\
 	if (data_list_[index]->type != re_type)return err_code::e_type_error;
 
 smart_result __stdcall DataArray::GetInt(uint32_t index, int32_t* val)
