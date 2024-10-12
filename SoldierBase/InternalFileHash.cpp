@@ -20,7 +20,7 @@ smart_result InternalFileHash::CalcFileHash(const wchar_t* file_path, NsHashData
 
 	if (!file.Open(file_path))
 	{
-		return false;
+		return err_code::e_fail;
 	}
 
 	hash_object->Init();
@@ -45,5 +45,5 @@ smart_result InternalFileHash::CalcFileHash(const wchar_t* file_path, NsHashData
 
 	data.length = InternalHash::instance().GetHashLength(type);
 
-	return true;
+	return err_code::s_ok;
 }

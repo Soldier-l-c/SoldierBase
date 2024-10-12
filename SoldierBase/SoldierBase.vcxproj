@@ -154,7 +154,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <ModuleDefinitionFile>SoldierBase.def</ModuleDefinitionFile>
-      <AdditionalDependencies>glog-x86.lib;dbghelp.lib;libssl.lib;libcrypto.lib;Crypt32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dbghelp.lib;libssl.lib;libcrypto.lib;Crypt32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SOLDIERS_3RD)/glog/lib;$(SOLDIERS_3RD)\curl\lib;$(SOLDIERS_3RD)/boost/lib;$(SOLDIERS_3RD)/openssl\3.3.1\release\mt\x86\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -169,7 +169,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SOLDIERS_3RD)/curl/include;$(SOLDIERS_PUBLIC)/include;$(SOLDIERS_INTERFACE)/;$(SOLDIERS_3RD)/glog/include;$(SOLDIERS_3RD)/boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SOLDIERS_3RD)/curl/include;$(SOLDIERS_PUBLIC)/include;$(SOLDIERS_INTERFACE)/;$(SOLDIERS_3RD)/glog/include;$(SOLDIERS_3RD)/boost;$(SOLDIERS_3RD)/openssl\3.3.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
@@ -180,8 +180,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <ModuleDefinitionFile>SoldierBase.def</ModuleDefinitionFile>
-      <AdditionalLibraryDirectories>$(SOLDIERS_3RD)/glog/lib;$(SOLDIERS_3RD)\curl\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glog-x86.lib;dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SOLDIERS_3RD)/glog/lib;$(SOLDIERS_3RD)\curl\lib;$(SOLDIERS_3RD)/openssl\3.3.1\release\mt\x86\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>dbghelp.lib;libssl.lib;libcrypto.lib;Crypt32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
