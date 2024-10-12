@@ -44,7 +44,7 @@ bool PipeContextReadTask::ReadData()
 		return false;
 	}
 
-	auto buffer = alloc_.Allocetor(header_.data_length);
+	auto buffer = alloc_.Allocate(header_.data_length);
 	if (buffer == nullptr)
 	{
 		callback_->OnError(-2);
