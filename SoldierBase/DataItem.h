@@ -38,7 +38,7 @@ struct DataItem
 
 public:
 	template <typename T>
-	bool GetData(T const* reqdata, NsDataItem::DataType reqtype)
+	bool GetData(T * const reqdata, NsDataItem::DataType reqtype)
 	{
 		if (this->type != reqtype)
 		{

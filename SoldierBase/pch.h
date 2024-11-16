@@ -18,6 +18,7 @@
 #include <vector>
 #include <functional>
 #include <fstream>
+#include <queue>
 
 #include <helper/util_time.h>
 #include <helper/util_string.h>
